@@ -10,7 +10,8 @@ function createWindow() {
     mainWindow = new BrowserWindow({ width: 800, height: 600 })
 
     // and load the index.html of the app.
-    mainWindow.loadFile('./src/index.html')
+    mainWindow.loadURL("http://localhost:3000/");
+    // mainWindow.loadFile('./src/index.html')
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
@@ -45,6 +46,3 @@ app.on('activate', function () {
         createWindow()
     }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
