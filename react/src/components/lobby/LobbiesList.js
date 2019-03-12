@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from '../header/header';
+import Header from '../header/Header';
 import '../css/lobbies_list.css';
 
 class LobbiesList extends Component {

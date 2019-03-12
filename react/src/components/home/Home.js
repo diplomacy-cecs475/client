@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import Header from '../header/header';
+import Header from '../header/Header';
 import '../css/home.css';
 
 class Home extends Component {
@@ -19,7 +19,7 @@ class Home extends Component {
                             <Link className="btn btn-dark home-button" to="/lobbies">Join a room</Link>
                         </div>
                         <div className="col-6 text-center">
-                            <Link className="btn btn-dark home-button" to="/lobbycreate">Create a room</Link>
+                            <Link className="btn btn-dark home-button" to="/createlobby">Create a room</Link>
                         </div>
                     </div>
                 </div>
