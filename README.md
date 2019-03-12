@@ -10,7 +10,7 @@ The desktop client will retrieve the server information so that the user can pla
 
 Open a terminal at the **root** of the repository and type:
 
-``npm i;cd react;npm i;cd ..``
+``cd electron;npm i;cd ../react;npm i;cd ..``
 
 # Start in development mode
 
@@ -21,6 +21,6 @@ Open a terminal in the **react** directory and type:
 
 ## Start electron
 
-Open an other terminal at the root of the directory and type:
+Open an other terminal in the **electron** directory and type:
 
 ``npm start``
