@@ -6,6 +6,7 @@ import LobbiesList from "./components/lobby/LobbiesList";
 import CreateLobby from "./components/lobby/CreateLobby";
 import './components/css/app.css';
 
+// Routes redirecting a path to a component
 class App extends Component {
   render() {
     return (

@@ -5,11 +5,9 @@ import '../css/home.css';
 
 class Home extends Component {
     render() {
-        // redirect to game if user is already connected
         return (
             <div className="home-container">
                 <Header noBackButton={true} />
-                {/* <h1 className="statecraft-title text-center mb-5">StateCraft</h1> */}
                 <div className="container">
                     <div className="mb-5">
                         <input className="col-2 offset-5 form-control" type="text" placeholder="Username" />
