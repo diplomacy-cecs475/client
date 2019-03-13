@@ -29,14 +29,25 @@ class LobbiesList extends Component {
 
         // Display each lobby
         return (lobbies.map(lobby => {
+            // Display a different line if the lobby is already playing
+            if (lobby.status === "Playing") {
+                return (
+                    <tr className="lobby-list-row-disabled" key={lobby.id}>
+                        <th scope="row">{lobby.name}</th>
+                        <td>{lobby.owner}</td>
+                        <td>{lobby.nb_players}</td>
+                        <td>{lobby.status}</td>
+                    </tr >
+                );
+            }
             return (
-                <tr className="lobby-list-row" onClick={() => window.location = "/lobby/" + lobby.id} key={lobby.id} >
+                <tr className="lobby-list-row" onClick={() => window.location = "/lobby/" + lobby.id} key={lobby.id}>
                     <th scope="row">{lobby.name}</th>
                     <td>{lobby.owner}</td>
                     <td>{lobby.nb_players}</td>
                     <td>{lobby.status}</td>
                 </tr >
-            )
+            );
         }));
     }
 

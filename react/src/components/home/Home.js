@@ -36,7 +36,7 @@ class Home extends Component {
                 <Header noBackButton={true} />
                 <div className="container">
                     <div className="mb-5">
-                        <input className="col-2 offset-5 form-control" id="input-username" type="text" placeholder="Username" />
+                        <input className="col-2 offset-5 form-control" id="input-username" type="text" placeholder="Username" autoComplete="off" />
                     </div>
                     <div className="row mx-auto w-50">
                         <div className="col-6 text-center">

@@ -2,11 +2,10 @@
 
 // Authenticate to the server
 export default function (username) {
-    // Send a post request
-
     // Until the server is implemented
     return (new Promise((resolve, reject) => {
         resolve({ newToken: "newtoken" });
-    }))
+    }));
+    // Send a post request
     // return (httpPost('/authenticate', { username: username }));
 }

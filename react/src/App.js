@@ -4,6 +4,7 @@ import Home from "./components/home/Home"
 import Lobby from "./components/lobby/Lobby";
 import LobbiesList from "./components/lobby/LobbiesList";
 import CreateLobby from "./components/lobby/CreateLobby";
+import Game from "./components/game/Game";
 import './components/css/app.css';
 
 // Notifications
@@ -25,6 +26,7 @@ class App extends Component {
           <Route exact path="/lobby/:lobbyid" component={RequireAuth(Lobby)} />
           <Route exact path="/lobbies" component={RequireAuth(LobbiesList)} />
           <Route exact path="/createlobby" component={RequireAuth(CreateLobby)} />
+          <Route exact path="/game/:gameid" component={RequireAuth(Game)} />
         </Switch>
         {/* Used for notifications */}
         <NotificationContainer />
