@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import "../css/bg.css";
 import "../css/create_lobby.css";
 
-class Lobby extends Component {
+class CreateLobby extends Component {
+
     render() {
         return (
             <div>
@@ -51,4 +52,4 @@ class Lobby extends Component {
     }
 };
 
-export default Lobby;
+export default CreateLobby;
