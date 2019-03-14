@@ -25,8 +25,8 @@ class Lobby extends Component {
                         <a className="dropdown-item" href="#">7</a>
                       </div>
                     </div>
-                    <div className="mx-auto mb-4 timer-btn">
-                      <p className="font-weight-lighter">Round timer :</p>
+                    <p class="text-center">Round timer:</p>
+                    <div className="mx-auto mb-4 timer-btn d-flex justify-content-center">
                       <div className="btn-group btn-group-toggle" data-toggle="buttons">
                         <label className="btn btn-dark active">
                           <input type="radio" name="timer" id="5min" autocomplete="off" checked /> 5 min
@@ -41,10 +41,10 @@ class Lobby extends Component {
                           <input type="radio" name="timer" id="1hour" autocomplete="off" /> 1 hour
                         </label>
                       </div>
+                      </div>
+                      <div className="d-flex justify-content-center mb-3">
+                        <Link className="btn btn-dark mx-auto" to="/lobby/0">Create room</Link>
                     </div>
-                    <div className="mx-auto mb-3">
-                      <Link className="btn btn-dark mx-auto" to="/lobby/0">Create room</Link>
-                  </div>
                 </div>
             </div>
         );
