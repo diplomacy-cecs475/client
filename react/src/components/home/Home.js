@@ -23,6 +23,7 @@ class Home extends Component {
         Authenticate(username).then(response => {
             // Save the token received from the server
             setToken(response.newToken);
+            document.getElementById("input-username").value = username;
             window.location = url;
         });
     }
