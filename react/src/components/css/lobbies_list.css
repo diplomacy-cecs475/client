@@ -5,12 +5,28 @@
 }
 
 .lobby-list-row {
+    border-top: 2px solid #4e5f6f;
+    border-bottom: 2px solid #4e5f6f;
     background-color: #4e5f6f;
     -webkit-transition: background-color 250ms linear;
     -moz-transition: background-color 250ms linear;
     -o-transition: background-color 250ms linear;
     -ms-transition: background-color 250ms linear;
     transition: background-color 250ms linear;
+}
+
+.lobby-list-row-disabled {
+    background-color: #4e5f6f;
+    border-top: 2px solid #4e5f6f;
+    -webkit-transition: background-color 250ms linear;
+    -moz-transition: background-color 250ms linear;
+    -o-transition: background-color 250ms linear;
+    -ms-transition: background-color 250ms linear;
+    transition: background-color 250ms linear;
+}
+
+.lobby-list-row-disabled:hover {
+    cursor: not-allowed;
 }
 
 .lobby-list-row:hover {

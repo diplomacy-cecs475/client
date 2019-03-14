@@ -1,0 +1,92 @@
+.game-container {
+    margin-left: 70px;
+    margin-right: 70px;
+    background-color: #596977;
+}
+
+.game-header {
+    background-color: #ABB3BA;
+    font-size: 30px;
+    padding: .2em;
+    color: rgb(41, 40, 40);
+    margin: 0;
+}
+
+.game-content {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-right: 1em;
+}
+
+@media only screen and (max-width: 1200px) {
+    .game-header {
+        font-size: 20px;
+    }
+}
+
+/* Right elements */
+
+.game-right-element {
+    background-color: #36414C;
+}
+
+.game-right-title {
+    background-color: #2b2e30;
+    font-weight: bold;
+}
+
+/* Player list */
+
+.game-player-list {
+    position: relative;
+    height: 60%;
+    margin-bottom: 1em;
+    overflow: auto;
+}
+
+.game-player-list-element {
+    color: white;
+    font-size: 20px;
+    border-bottom: 2px solid #36414C;
+}
+
+/* Inventory */
+
+.game-inventory {
+    height: 35%;
+}
+
+/* Chat */
+
+.game-chat-btn {
+    color: white;
+}
+
+.game-chat-btn:hover {
+    color: grey;
+}
+
+.game-chat {
+    position: relative;
+    height: 60%;
+    margin-bottom: 1em;
+    overflow: auto;
+}
+
+.game-chat-title-container {
+    background-color: #2b2e30;
+}
+
+.game-chat-title {
+    display: inline;
+}
+
+.game-chat-close-btn {
+    float: right;
+    color: white;
+    margin-top: -5px;
+}
+
+.game-chat-close-btn:hover {
+    color: grey;
+}
