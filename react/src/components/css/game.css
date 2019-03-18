@@ -4,6 +4,11 @@
     background-color: #596977;
 }
 
+.game-container .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 .game-header {
     background-color: #ABB3BA;
     font-size: 30px;
@@ -16,12 +21,6 @@
     padding-top: 1em;
     padding-bottom: 1em;
     padding-right: 1em;
-}
-
-@media only screen and (max-width: 1200px) {
-    .game-header {
-        font-size: 20px;
-    }
 }
 
 /* Right elements */
@@ -69,8 +68,8 @@
 .game-chat {
     position: relative;
     height: 60%;
+    min-height: 300px;
     margin-bottom: 1em;
-    overflow: auto;
 }
 
 .game-chat-title-container {
@@ -89,4 +88,55 @@
 
 .game-chat-close-btn:hover {
     color: grey;
+}
+
+.game-chat-messages-container {
+    position: absolute;
+    overflow-y: auto;
+    height: 70%;
+    width: 90%;
+    min-height: 200px;
+}
+
+.game-chat-input {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+}
+
+.game-chat-message {
+    font-size: 20px;
+}
+
+.game-chat-message-date {
+    font-size: 15px;
+    float: right;
+    margin-right: 1em;
+}
+
+.game-chat-message-username {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+/* MAP */
+
+.game-map-element {
+    position: absolute;
+}
+
+/* Small screens adaptations */
+
+@media only screen and (max-width: 1200px) {
+    /* Header */
+    .game-header {
+        font-size: 20px;
+        text-align: center;
+    }
+    /* Player list */
+    .game-player-list {
+        margin-top: 1em;
+    }
 }

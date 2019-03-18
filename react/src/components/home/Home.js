@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Header from '../header/Header';
 import { createNotification } from '../../misc/CreateNotification';
-import Authenticate from '../../authentication/Authenticate';
 import { setToken, clearToken } from '../../authentication/Token';
+import { Authenticate } from '../../sockets/Authenticate';
+import { Connect } from '../../sockets/Connect';
 import '../css/home.css';
+
+// connect to the server
+global.socket = Connect(':4000');
 
 class Home extends Component {
     onAuthenticate(e, url) {
@@ -20,9 +24,10 @@ class Home extends Component {
             return;
         }
         // Authenticate with the server
-        Authenticate(username).then(response => {
+        Authenticate(global.socket, username).then(response => {
             // Save the token received from the server
-            setToken(response.newToken);
+            setToken("lol");
+            document.getElementById("input-username").value = username;
             window.location = url;
         });
     }
