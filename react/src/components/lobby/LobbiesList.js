@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../header/Header';
 import '../css/lobbies_list.css';
+import '../css/bg.css';
 
 class LobbiesList extends Component {
     constructor() {
@@ -55,9 +56,9 @@ class LobbiesList extends Component {
         return (
             <div>
                 <Header />
-                <div className="container">
+                <div className="container bg-card pt-3 pb-1">
                     <table className="table lobby-list-table">
-                        <thead className="thead-dark">
+                        <thead className="head">
                             <tr>
                                 <th scope="col">Room name</th>
                                 <th scope="col">Owner</th>
