@@ -1,0 +1,31 @@
+.chat-messages-container {
+    position: absolute;
+    overflow-y: auto;
+    height: 70%;
+    width: 100%;
+    min-height: 200px;
+    padding: 1em;
+}
+
+.chat-input {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+}
+
+.chat-message {
+    font-size: 20px;
+}
+
+.chat-message-date {
+    font-size: 15px;
+    float: right;
+    margin-right: 1em;
+}
+
+.chat-message-username {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 1em;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Header from '../header/Header';
+import Chat from '../chat/Chat';
 import '../css/game.css';
 
 class Game extends Component {
@@ -11,8 +12,7 @@ class Game extends Component {
             time_remaining: undefined,
             game_name: undefined,
             round_info: undefined,
-            chatting_with: undefined,
-            chat_messages: []
+            chatting_with: undefined
         };
     }
 
@@ -32,11 +32,6 @@ class Game extends Component {
             game_name: "test",
             round_info: "Round 1 - Spring 1901"
         });
-    }
-
-    componentDidUpdate() {
-        // Reset the position of the chat bar to the bottom
-        this.resetChatScrollPositon();
     }
 
     // Display the game header with game informations
@@ -74,55 +69,15 @@ class Game extends Component {
         this.setState({ chatting_with: username });
     }
 
-    onChatSubmit() {
-        // Get the chat field 
-        var message = document.getElementById("chat-input").value;
-        var { chat_messages } = this.state;
-
-        if (message.length === 0)
-            return;
-
-        var currentdate = new Date();
-        var seconds = currentdate.getSeconds();
-        // If the number of seconds is between 0 and 9, we add a 0 before
-        if (seconds < 10)
-            seconds = "0" + seconds;
-        var datetime = currentdate.getHours() + ":"
-            + currentdate.getMinutes() + ":"
-            + seconds;
-
-        // ONLY UNTIL SERVER
-        chat_messages.push({ message: message, date: datetime, username: localStorage.getItem('username') });
-        // 
-        // Send the message
-        this.setState({ chat_messages: chat_messages });
-        // Clear the chat input
-        document.getElementById("chat-input").value = "";
-    }
-
-    handleChatKey(e) {
-        // If key pressed is enter, submit the message
-        if (e.key === "Enter") {
-            this.onChatSubmit();
-        }
-    }
-
-    resetChatScrollPositon() {
-        var element = document.getElementById("messages-container");
-        if (element)
-            element.scrollTop = element.scrollHeight;
-
-    }
     // Close current chat
     onClickChatClose() {
         this.setState({
             chatting_with: undefined,
-            chat_messages: []
         });
     }
 
     displayChat() {
-        const { chatting_with, chat_messages } = this.state;
+        const { chatting_with } = this.state;
 
         if (!chatting_with)
             return;
@@ -132,27 +87,7 @@ class Game extends Component {
                     <h3 className="game-chat-title">Chatting with <b>{chatting_with}</b></h3>
                     <button className="btn game-chat-close-btn" onClick={() => this.onClickChatClose()}><i className="fas fa-times fa-2x"></i></button>
                 </div>
-                <div>
-                    <div className="game-chat-messages-container" id="messages-container">
-                        {chat_messages.map((message, index) => {
-                            return (
-                                <div key={"messages-" + index} className="game-chat-message">
-                                    <label className="game-chat-message-username">{message.username}:</label>
-                                    {message.message}<label className="game-chat-message-date">{message.date}</label>
-                                </div>)
-                        })}
-                    </div>
-                    <div className="input-group game-chat-input">
-                        <input id="chat-input" type="text" className="form-control input-sm"
-                            placeholder="Type your message here..." onKeyPress={(e) => this.handleChatKey(e)}
-                            autoComplete="off" />
-                        <span className="input-group-btn">
-                            <button className="btn btn-primary" onClick={() => this.onChatSubmit()}>
-                                Send
-                            </button>
-                        </span>
-                    </div>
-                </div>
+                <Chat contact={chatting_with} />
             </div>);
     }
 

@@ -1,0 +1,31 @@
+.lobby-content {
+    padding: 2em;
+}
+
+.lobby-content-title {
+    font-weight: bold;
+    border-bottom: 2px solid #B7A47D;
+    margin-bottom: 1em;
+}
+
+.lobby-player {
+    font-size: 20px;
+    margin-left: 2em;
+    line-height: 10px;
+}
+
+.lobby-player-admin {
+    font-size: 15px;
+    color: rgb(3, 206, 3);
+    margin-left: 1em;
+}
+
+.lobby-chat-container {
+    background-color: #272A2D;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    height: 60%;
+    min-height: 300px;
+    margin-bottom: 1em;
+}
