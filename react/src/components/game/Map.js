@@ -29,13 +29,30 @@ class Map extends Component {
             { name: "Spain", position: { x: 12, y: 75 } },
             { name: "Bre", position: { x: 22, y: 60 } }
         ]
+        this.supplyCenters = [
+            { position: { x: 18, y: 57 } }
+        ]
+    }
+
+    displaySupplyCenters() {
+        return this.supplyCenters.map((supplyCenter) => {
+            return (<i
+                className="fas fa-warehouse map-supply-center"
+                style={
+                    {
+                        marginLeft: supplyCenter.position.x + "%",
+                        marginTop: supplyCenter.position.y + "%"
+                    }
+                }
+            ></i>)
+        });
     }
 
     displayTerritories() {
         return this.territories.map((territory) => {
             return (
                 <label key={territory.name}
-                    className="map-territory-name"
+                    className={"map-territory-name " + (territory.rotate !== undefined ? "rotate" + territory.rotate : "")}
                     style={
                         {
                             marginLeft: territory.position.x + "%",
@@ -44,7 +61,7 @@ class Map extends Component {
                     }
                 >
                     {territory.name}
-                </label>
+                </label >
             );
         });
     }
@@ -53,6 +70,7 @@ class Map extends Component {
         return (
             <div className="col-12 map">
                 {this.displayTerritories()}
+                {this.displaySupplyCenters()}
                 {/* Display an empty element to set the correct size to the map */}
                 <label style={
                     {

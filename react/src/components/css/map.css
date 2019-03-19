@@ -8,9 +8,86 @@
 .map-territory-name {
     position: absolute;
     color: black;
+    font-size: 20px;
 }
 
 .map-territory-name:hover {
     color: red;
     cursor: pointer;
+}
+
+.map-supply-center {
+    position: absolute;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+/* Rotate text functions */
+
+.rotate-90 {
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+    /* IE */
+    -ms-transform: rotate(-90deg);
+    /* Opera */
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.rotate90 {
+    /* Safari */
+    -webkit-transform: rotate(90deg);
+    /* Firefox */
+    -moz-transform: rotate(90deg);
+    /* IE */
+    -ms-transform: rotate(90deg);
+    /* Opera */
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.rotate45 {
+    /* Safari */
+    -webkit-transform: rotate(45deg);
+    /* Firefox */
+    -moz-transform: rotate(45deg);
+    /* IE */
+    -ms-transform: rotate(45deg);
+    /* Opera */
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.rotate-45 {
+    /* Safari */
+    -webkit-transform: rotate(-45deg);
+    /* Firefox */
+    -moz-transform: rotate(-45deg);
+    /* IE */
+    -ms-transform: rotate(-45deg);
+    /* Opera */
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+/* Resize the territories font size on smaller screens */
+
+@media only screen and (max-width: 1600px) {
+    .map-supply-center {
+        font-size: 12px;
+    }
+    .map-territory-name {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .map-supply-center {
+        font-size: 12px;
+    }
+    .map-territory-name {
+        font-size: 12px;
+    }
 }
