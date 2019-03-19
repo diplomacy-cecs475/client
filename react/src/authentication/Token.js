@@ -13,7 +13,7 @@ export function getTokenInHeader() {
 }
 
 export function clearToken() {
-    localStorage.removeItem('x-access-token');
+    // localStorage.removeItem('x-access-token');
 }
 
 export function setToken(newToken) {

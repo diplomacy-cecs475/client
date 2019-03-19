@@ -5,7 +5,8 @@ class Map extends Component {
     constructor() {
         super();
         this.territories = [
-            { name: "Spain", position: { x: 12, y: 75 } }
+            { name: "Spain", position: { x: 12, y: 75 } },
+            { name: "Bre", position: { x: 22, y: 60 } }
         ]
     }
 
@@ -29,11 +30,16 @@ class Map extends Component {
 
     render() {
         return (
-            <div>
-                <div className="map col-12">
-                    {this.displayTerritories()}
-                </div>
-            </div>
+            <div className="col-12 map">
+                {this.displayTerritories()}
+                {/* Display an empty element to set the correct size to the map */}
+                <label style={
+                    {
+                        marginLeft: "100%",
+                        marginTop: "100%"
+                    }
+                }></label>
+            </div >
         );
     }
 }
