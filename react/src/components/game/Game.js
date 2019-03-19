@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Header from '../header/Header';
 import Chat from '../chat/Chat';
+import Map from './Map';
 import '../css/game.css';
 
 class Game extends Component {
@@ -151,7 +152,7 @@ class Game extends Component {
                     {this.displayGameHeader()}
                     <div className="row game-content">
                         <div className="col-lg-7 col-md-12 col-sm-12">
-                            <img className="col-12" src="/images/map.png" alt="game map" />
+                            <Map />
                         </div>
                         <div className="col-lg-5 col-md-12 col-sm-12 row">
                             {/* Display chat or player list */}
