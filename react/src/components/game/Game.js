@@ -20,13 +20,13 @@ class Game extends Component {
         // Debug initialization until the server is working
         this.setState({
             players: [
-                { id: 1, username: "Antoine", country: "France" },
-                { id: 2, username: "BoB", country: "Germany" },
-                { id: 3, username: "BoB", country: "Germany" },
-                { id: 4, username: "BoB", country: "Germany" },
-                { id: 5, username: "BoB", country: "Germany" },
-                { id: 6, username: "BoB", country: "Germany" },
-                { id: 7, username: "Kevin", country: "England" }
+                { id: 1, username: "Antoine", country: "France", fleet: 1, army: 2, supply: 3},
+                { id: 2, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
+                { id: 3, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
+                { id: 4, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
+                { id: 5, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
+                { id: 6, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
+                { id: 7, username: "Kevin", country: "England", fleet: 1, army: 2, supply: 3 }
             ],
             time_remaining: "5:00",
             game_name: "test",
@@ -135,7 +135,24 @@ class Game extends Component {
         return (
             <div className="game-right-element game-inventory col-lg-12 col-md-12 col-sm-12">
                 <h3 className="text-center game-right-title">Inventory</h3>
-                <div>
+                <div className="container inventory">
+                  <ul>
+                    <li className="d-flex justify-content-between align-items-center mt-4">
+                      <span className="fleet-icon mx-auto"><i className="fas fa-ship fa-3x"></i>
+                        <span className="icon-title ml-4">Fleet x</span>
+                      </span>
+                    </li>
+                    <li className="d-flex justify-content-between align-items-center mt-4">
+                      <span className="army-icon mx-auto"><i className="fas fa-space-shuttle fa-3x"></i>
+                        <span className="icon-title ml-4">Army x</span>
+                      </span>
+                    </li>
+                    <li className="d-flex justify-content-between align-items-center mt-4">
+                      <span className="center-icon mx-auto"><i className="fas fa-warehouse fa-3x"></i>
+                        <span className="icon-title ml-4">Supply center x</span>
+                      </span>
+                    </li>
+                  </ul>
                 </div>
             </div>
         );

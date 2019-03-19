@@ -97,6 +97,24 @@
     position: absolute;
 }
 
+/* Icon color */
+
+.fleet-icon {
+  color: #FF9052;
+}
+
+.army-icon {
+  color: #FFD185;
+}
+
+.center-icon {
+  color: #77D353;
+}
+
+.icon-title {
+  color: white;
+}
+
 /* Small screens adaptations */
 
 @media only screen and (max-width: 1200px) {
