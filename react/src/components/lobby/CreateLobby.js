@@ -13,19 +13,15 @@ class CreateLobby extends Component {
         <div className="container bg-card pt-1 pb-2 pt-4">
           <input className="col-2 offset-5 form-control mb-4" type="text" placeholder="Room name" />
           <input className="col-2 offset-5 form-control mb-4" type="text" placeholder="Password" />
-          <div className="dropdown mx-auto mb-4">
-            <button className="btn btn-secondary dropdown-toggle col-2 offset-5" type="button" id="dropdownPlayers" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Total players
-                      </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownPlayers">
-              <a className="dropdown-item" href="#">2</a>
-              <a className="dropdown-item" href="#">3</a>
-              <a className="dropdown-item" href="#">4</a>
-              <a className="dropdown-item" href="#">5</a>
-              <a className="dropdown-item" href="#">6</a>
-              <a className="dropdown-item" href="#">7</a>
-            </div>
-          </div>
+          <select className="custom-select custom-select-lg mb-3 col-2 offset-5">
+            <option value="" hidden >Total players</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
           <p class="text-center">Round timer:</p>
           <div className="mx-auto mb-4 timer-btn d-flex justify-content-center">
             <div className="btn-group btn-group-toggle" data-toggle="buttons">
