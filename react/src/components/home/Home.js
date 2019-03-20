@@ -26,8 +26,10 @@ class Home extends Component {
         // Authenticate with the server
         Authenticate(global.socket, username).then(response => {
             // Save the token received from the server
+            var usernameInput = document.getElementById("input-username");
+            if (usernameInput)
+                usernameInput.value = username;
             setToken("lol");
-            document.getElementById("input-username").value = username;
             window.location = url;
         });
     }
