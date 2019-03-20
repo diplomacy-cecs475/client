@@ -56,6 +56,10 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
+                <div className="text-center mt-5">
+                    <h2>How to play</h2>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/v9rcnahI-_s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </div>
         );
     }
