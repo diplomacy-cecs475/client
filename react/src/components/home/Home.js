@@ -33,7 +33,6 @@ class Home extends Component {
             window.location = url;
         });
     }
-
     render() {
         // Clear the current
         clearToken();
@@ -45,13 +44,13 @@ class Home extends Component {
                     <div className="mb-5">
                         <input className="col-2 offset-5 form-control" id="input-username" type="text" placeholder="Username" autoComplete="off" />
                     </div>
-                    <div className="row mx-auto w-50">
-                        <div className="col-6 text-center">
+                    <div className="row mx-auto">
+                        <div className="col-6 text-right">
                             <Link onClick={(e) => this.onAuthenticate(e, '/lobbies')} className="btn btn-dark home-button" to="/lobbies">
                                 Join a room
                             </Link>
                         </div>
-                        <div className="col-6 text-center">
+                        <div className="col-6 text-left">
                             <Link onClick={(e) => this.onAuthenticate(e, '/createlobby')} className="btn btn-dark home-button" to="/createlobby">
                                 Create a room
                             </Link>
