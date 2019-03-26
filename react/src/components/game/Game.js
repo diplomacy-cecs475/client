@@ -52,10 +52,10 @@ class Game extends Component {
                 <div className="col-lg-2 col-sm-6">
                     {game_name}
                 </div>
-                <div className="col-lg-2 col-sm-6">
+                <div className="col-lg-1 col-sm-6">
                     Austria
                 </div>
-                <div className="col-lg-2 col-sm-12">
+                <div className="col-lg-3 col-sm-12">
                     <button className="btn btn-success col-sm-6">Submit orders</button>
                     <Link className="btn btn-danger game-leave-btn col-sm-6" to="/lobbies">Leave</Link>
                 </div>
