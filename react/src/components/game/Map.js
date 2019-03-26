@@ -25,6 +25,8 @@ class Map extends Component {
             { name: "Eas", position: { x: 77, y: 94 } },
             { name: "Black Sea", position: { x: 77, y: 72 } },
            
+            { name: "Naf", position: { x: 12, y: 93 } },
+            { name: "Tun", position: { x: 35, y: 93 } },
             { name: "Por", position: { x: 3, y: 75 } },
             { name: "Spain", position: { x: 12, y: 75 } },
             { name: "Bre", position: { x: 22, y: 60 } },
@@ -40,6 +42,54 @@ class Map extends Component {
             { name: "Yor", position: { x: 26.5, y: 44 } },
             { name: "Wal", position: { x: 22, y: 47 } },
             { name: "Lon", position: { x: 26, y: 49 } },
+            
+            { name: "Bel", position: { x: 32, y: 54 } },
+            { name: "Hol", position: { x: 35.5, y: 49 } },
+            { name: "Ruh", position: { x: 37, y: 55 } },
+            { name: "Kie", position: { x: 40, y: 51 } },
+            { name: "Den", position: { x: 42, y: 41 } },
+            { name: "Ber", position: { x: 46, y: 49 } },
+            { name: "Pru", position: { x: 52, y: 49 } },
+            { name: "Sil", position: { x: 51, y: 54 } },
+            { name: "Mun", position: { x: 40, y: 59 } },
+
+            { name: "Ven", position: { x: 42, y: 71 } },
+            { name: "Pie", position: { x: 37, y: 69 } },
+            { name: "Tus", position: { x: 41, y: 74 } },
+            { name: "Rom", position: { x: 43, y: 78 } },
+            { name: "Nap", position: { x: 47, y: 82 } },
+            { name: "Apu", position: { x: 49, y: 80 } },
+
+            { name: "Trl", position: { x: 44, y: 65 } },
+            { name: "Boh", position: { x: 48, y: 58 } },
+            { name: "Vie", position: { x: 51, y: 62 } },
+            { name: "Gal", position: { x: 60, y: 58 } },
+            { name: "Bud", position: { x: 57, y: 65 } },
+            { name: "Tri", position: { x: 52, y: 70 } },
+
+            { name: "Ser", position: { x: 58, y: 74 } },
+            { name: "Alb", position: { x: 57, y: 79 } },
+            { name: "Gre", position: { x: 60.5, y: 83 } },
+            { name: "Bul", position: { x: 65, y: 75 } },
+            { name: "Rum", position: { x: 66, y: 71 } },
+
+            { name: "War", position: { x: 59, y: 53 } },
+            { name: "Ukr", position: { x: 70, y: 57 } },
+            { name: "Sev", position: { x: 82, y: 57 } },
+            { name: "Mos", position: { x: 81, y: 44 } },
+            { name: "Lvn", position: { x: 64, y: 42 } },
+            { name: "Stp", position: { x: 80, y: 25 } },
+
+            { name: "Fin", position: { x: 64, y: 25 } },
+            { name: "Swe", position: { x: 51, y: 27 } },
+            { name: "Nwy", position: { x: 44, y: 29 } },
+
+            { name: "Con", position: { x: 73, y: 83 } },
+            { name: "Smy", position: { x: 78, y: 87 } },
+            { name: "Ank", position: { x: 84, y: 80 } },
+            { name: "Arm", position: { x: 95, y: 79 } },
+            { name: "Syr", position: { x: 92, y: 90 } },
+
         ]
 
         // Position of the supply centers
