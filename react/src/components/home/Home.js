@@ -26,8 +26,10 @@ class Home extends Component {
         // Authenticate with the server
         Authenticate(global.socket, username).then(response => {
             // Save the token received from the server
+            var usernameInput = document.getElementById("input-username");
+            if (usernameInput)
+                usernameInput.value = username;
             setToken("lol");
-            document.getElementById("input-username").value = username;
             window.location = url;
         });
     }
@@ -55,6 +57,10 @@ class Home extends Component {
                             </Link>
                         </div>
                     </div>
+                </div>
+                <div className="text-center mt-5">
+                    <h2>How to play</h2>
+                    <iframe title="how to play" width="560" height="315" src="https://www.youtube.com/embed/v9rcnahI-_s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         );
