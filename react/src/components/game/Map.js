@@ -13,21 +13,33 @@ class Map extends Component {
             { name: "Bal", position: { x: 53, y: 44 } },
             { name: "Ska", position: { x: 44, y: 37 } },
             { name: "North Sea", position: { x: 31, y: 36 } },
-            { name: "Hel", position: { x: 39, y: 45 } },
+            { name: "Hel", position: { x: 38, y: 45 } },
             { name: "Eng", position: { x: 19, y: 53 } },
             { name: "Iri", position: { x: 15, y: 48 } },
             { name: "Gulf of Lyon", position: { x: 27, y: 77 } },
             { name: "West Mediterranean", position: { x: 18, y: 85 } },
-            { name: "Tyrhennian Sea", position: { x: 12, y: 75 } },
-            { name: "Adriatic Sea", position: { x: 12, y: 75 } },
-            { name: "Ionian Sea", position: { x: 12, y: 75 } },
-            { name: "Aegean Sea", position: { x: 12, y: 75 } },
-            { name: "East Mediterranean", position: { x: 12, y: 75 } },
-            { name: "Black Sea", position: { x: 12, y: 75 } },
+            { name: "Tyr", position: { x: 41, y: 83 } },
+            { name: "Adr", position: { x: 48, y: 75 } },
+            { name: "Ionian Sea", position: { x: 48, y: 93 } },
+            { name: "Aeg", position: { x: 68, y: 89 } },
+            { name: "Eas", position: { x: 77, y: 94 } },
+            { name: "Black Sea", position: { x: 77, y: 72 } },
            
-            
+            { name: "Por", position: { x: 3, y: 75 } },
             { name: "Spain", position: { x: 12, y: 75 } },
-            { name: "Bre", position: { x: 22, y: 60 } }
+            { name: "Bre", position: { x: 22, y: 60 } },
+            { name: "Gas", position: { x: 22, y: 67 } },
+            { name: "Paris", position: { x: 26, y: 59 } },
+            { name: "Pic", position: { x: 28, y: 55.5 } },
+            { name: "Bur", position: { x: 31, y: 62 } },
+            { name: "Mar", position: { x: 29, y: 70 } },
+            
+            { name: "Cly", position: { x: 23, y: 34 } },
+            { name: "Edi", position: { x: 25.5, y: 36 } },
+            { name: "Lyp", position: { x: 23, y: 39 } },
+            { name: "Yor", position: { x: 26.5, y: 44 } },
+            { name: "Wal", position: { x: 22, y: 47 } },
+            { name: "Lon", position: { x: 26, y: 49 } },
         ]
         this.supplyCenters = [
             { position: { x: 18, y: 57 } }
