@@ -27,6 +27,11 @@ class LobbiesList extends Component {
         // });
     }
 
+    isPublic(val) {
+      if (!val)
+        return (<i className="fas fa-lock ml-4"></i>);
+    }
+
     displayLobbies() {
         const { lobbies } = this.state;
 
@@ -44,19 +49,22 @@ class LobbiesList extends Component {
                         <th scope="row">{lobby.name}</th>
                         <td>{lobby.users[0].username}</td>
                         <td>{String(lobby.users.length)}</td>
-                        <td>In lobby</td>
+                        <td>In lobby{this.isPublic(lobby.pubic)}</td>
                     </tr >
                 );
             }
             return (
-                <tr className="lobby-list-row-disabled" onClick={() => window.location = "/lobby/" + lobby.id} key={lobby.id}>
+                <tr className="lobby-list-row-disabled" data-toggle="modal" data-id="1" data-target="#passwordModal" key={lobby.tokenId}>
                     <th scope="row">{lobby.name}</th>
                     <td>Owner</td>
                     <td>{lobby.users.length}</td>
-                    <td>Playing</td>
+                    <td>Playing{this.isPublic(lobby.pubic)}</td>
                 </tr >
             );
         }));
+
+        //<tr className="lobby-list-row-disabled" onClick={() => window.location = "/lobby/" + lobby.tokenId} key={lobby.tokenId}>
+
         //     if (lobby.status === "Playing") {
         //         return (
         //             <tr className="lobby-list-row-disabled" key={lobby.id}>
@@ -97,7 +105,27 @@ class LobbiesList extends Component {
                         </tbody>
                     </table>
                 </div>
+                <div className="modal fade" id="passwordModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                  <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+
+                      </div>
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div >
+
         );
     }
 };
