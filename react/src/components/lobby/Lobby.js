@@ -4,6 +4,10 @@ import Header from '../header/Header';
 import Chat from '../chat/Chat';
 import '../css/bg.css';
 import '../css/lobby.css';
+import { Connect } from '../../sockets/Connect';
+import { getToken } from '../../authentication/Token';
+
+global.socket = Connect(':4000');
 
 class Lobby extends Component {
     constructor() {
@@ -15,9 +19,20 @@ class Lobby extends Component {
             round_duration: undefined,
             status: undefined
         };
+
+      global.socket.on('reconnect user:response', (data) => {
+        console.log("reconnect = ", data);
+      });
+      var tok = getToken();
+      console.log("BEFORE reconnect", tok);
+      global.socket.emit("reconnect user", tok);
     }
 
     componentDidMount() {
+      // getLobbyList(global.socket).then(response => {
+      //   console.log("response = " + response);
+      // });
+
         // Initialize until the server communication works
         this.setState({
             players: [

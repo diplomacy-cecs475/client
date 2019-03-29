@@ -11,6 +11,20 @@ import '../css/home.css';
 global.socket = Connect(':4000');
 
 class Home extends Component {
+
+    constructor() {
+      super();
+
+      global.socket.on('add user:response', (data) => {
+        console.log("data home = ", data);
+        if (data.success)
+          setToken(data.response.tokenId);
+        else
+          createNotification('warning', data.response);
+      });
+
+    }
+
     onAuthenticate(e, url) {
         // Get the value of the username input
         var username = document.getElementById("input-username").value;
@@ -29,8 +43,8 @@ class Home extends Component {
             var usernameInput = document.getElementById("input-username");
             if (usernameInput)
                 usernameInput.value = username;
-            setToken("lol");
-            window.location = url;
+            // setToken("lol");
+            // window.location = url;
         });
     }
     render() {
@@ -59,7 +73,7 @@ class Home extends Component {
                 </div>
                 <div className="text-center mt-5">
                     <h2>How to play</h2>
-                    <iframe title="how to play" width="560" height="315" src="https://www.youtube.com/embed/v9rcnahI-_s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe title="how to play" width="560" height="315" src="https://www.youtube.com/embed/v9rcnahI-_s" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </div>
             </div>
         );

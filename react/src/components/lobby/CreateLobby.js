@@ -1,19 +1,44 @@
 import React, { Component } from 'react';
 import Header from '../header/Header';
-import { Link } from "react-router-dom";
 import "../css/bg.css";
 import "../css/create_lobby.css";
+import { createNotification } from '../../misc/CreateNotification';
 
 class CreateLobby extends Component {
+
+  constructor() {
+      super();
+      this.state = {
+          status: undefined
+      };
+
+      global.socket.on('create room:response', (data) => {
+        if (data.success)
+          console.log("test"); //if we change the location it will disconnect the logout the user and destroy the room
+          // window.location = "/lobby/" + data.response.tokenId;
+        else {
+          createNotification('error', data.response);
+        }
+      });
+  }
+
+  create() {
+    var name = this.refs.name.value.trim();
+
+    if (name === "")
+      createNotification('warning', 'Missing room name');
+    else
+      global.socket.emit("create room", "name" , this.refs.password.value === "" ? true : false, this.refs.password.value);
+  }
 
   render() {
     return (
       <div>
         <Header />
         <div className="container bg-card pt-1 pb-2 pt-4">
-          <input className="col-2 offset-5 form-control mb-4" type="text" placeholder="Room name" />
-          <input className="col-2 offset-5 form-control mb-4" type="password" placeholder="Password" />
-          <select className="custom-select custom-select-lg mb-3 col-2 offset-5">
+          <input ref="name" className="col-2 offset-5 form-control mb-4" type="text" placeholder="Room name" />
+          <input ref="password" className="col-2 offset-5 form-control mb-4" type="password" placeholder="Password" />
+          <select ref="players" className="custom-select custom-select-lg mb-3 col-2 offset-5">
             <option value="" hidden >Total players</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -22,25 +47,25 @@ class CreateLobby extends Component {
             <option value="6">6</option>
             <option value="7">7</option>
           </select>
-          <p class="text-center">Round timer:</p>
+          <p className="text-center">Round timer:</p>
           <div className="mx-auto mb-4 timer-btn d-flex justify-content-center">
             <div className="btn-group btn-group-toggle" data-toggle="buttons">
               <label className="btn btn-dark active">
-                <input type="radio" name="timer" id="5min" autocomplete="off" checked /> 5 min
-                        </label>
+                <input ref="timer1" type="radio" name="timer" value="5" autoComplete="off" defaultChecked /> 5 min
+              </label>
               <label className="btn btn-dark">
-                <input type="radio" name="timer" id="15min" autocomplete="off" /> 15 min
-                        </label>
+                <input ref="timer2" type="radio" name="timer" value="15" autoComplete="off" /> 15 min
+              </label>
               <label className="btn btn-dark">
-                <input type="radio" name="timer" id="30min" autocomplete="off" /> 30 min
-                        </label>
+                <input ref="timer3" type="radio" name="timer" value="30" autoComplete="off"/> 30 min
+              </label>
               <label className="btn btn-dark">
-                <input type="radio" name="timer" id="1hour" autocomplete="off" /> 1 hour
-                        </label>
+                <input ref="timer4" type="radio" name="timer" value="1" autoComplete="off"/> 1 hour
+              </label>
             </div>
           </div>
           <div className="d-flex justify-content-center mb-3">
-            <Link className="btn btn-dark mx-auto" to="/lobby/0">Create room</Link>
+            <button className="btn btn-dark mx-auto" onClick={this.create.bind(this)}>Create room</button>
           </div>
         </div>
       </div>
