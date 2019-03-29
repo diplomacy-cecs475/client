@@ -34,6 +34,7 @@ class LobbiesList extends Component {
         if (!lobbies)
             return;
 
+        console.log(lobbies);
         // Display each lobby
         return (lobbies.map(lobby => {
             // Display a different line if the lobby is available
@@ -41,9 +42,9 @@ class LobbiesList extends Component {
                 return (
                     <tr className="lobby-list-row" key={lobby.tokenId}>
                         <th scope="row">{lobby.name}</th>
-                        <td>Owner</td>
+                        <td>{lobby.users[0].username}</td>
                         <td>{String(lobby.users.length)}</td>
-                        <td>"In lobby"</td>
+                        <td>In lobby</td>
                     </tr >
                 );
             }
@@ -52,7 +53,7 @@ class LobbiesList extends Component {
                     <th scope="row">{lobby.name}</th>
                     <td>Owner</td>
                     <td>{lobby.users.length}</td>
-                    <td>"Playing"</td>
+                    <td>Playing</td>
                 </tr >
             );
         }));
