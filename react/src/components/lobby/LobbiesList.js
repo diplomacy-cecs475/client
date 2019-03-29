@@ -36,10 +36,10 @@ class LobbiesList extends Component {
 
         // Display each lobby
         return (lobbies.map(lobby => {
-            // Display a different line if the lobby is already playing
+            // Display a different line if the lobby is available
             if (lobby.started !== true) {
                 return (
-                    <tr className="lobby-list-row-disabled" key={lobby.tokenId}>
+                    <tr className="lobby-list-row" key={lobby.tokenId}>
                         <th scope="row">{lobby.name}</th>
                         <td>Owner</td>
                         <td>{String(lobby.users.length)}</td>
@@ -48,7 +48,7 @@ class LobbiesList extends Component {
                 );
             }
             return (
-                <tr className="lobby-list-row" onClick={() => window.location = "/lobby/" + lobby.id} key={lobby.id}>
+                <tr className="lobby-list-row-disabled" onClick={() => window.location = "/lobby/" + lobby.id} key={lobby.id}>
                     <th scope="row">{lobby.name}</th>
                     <td>Owner</td>
                     <td>{lobby.users.length}</td>

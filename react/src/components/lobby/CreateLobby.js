@@ -28,7 +28,7 @@ class CreateLobby extends Component {
     if (name === "")
       createNotification('warning', 'Missing room name');
     else
-      global.socket.emit("create room", "name" , this.refs.password.value === "" ? true : false, this.refs.password.value);
+      global.socket.emit("create room", this.refs.name.value, this.refs.password.value === "" ? true : false, this.refs.password.value);
   }
 
   render() {
