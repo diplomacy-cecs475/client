@@ -6,16 +6,18 @@ import { createNotification } from '../../misc/CreateNotification';
 
 class CreateLobby extends Component {
 
-  constructor() {
-      super();
+  constructor(props, context) {
+      super(props, context);
       this.state = {
           status: undefined
       };
 
       global.socket.on('create room:response', (data) => {
         if (data.success)
+        {
           console.log("test"); //if we change the location it will disconnect the logout the user and destroy the room
           // window.location = "/lobby/" + data.response.tokenId;
+        }
         else {
           createNotification('error', data.response);
         }

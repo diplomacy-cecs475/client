@@ -14,6 +14,7 @@ import 'react-notifications/lib/notifications.css';
 // Function to restrict some routes to non-authenticated players
 import RequireAuth from './misc/RequireAuth';
 
+
 // Routes redirecting a path to a component
 class App extends Component {
   render() {

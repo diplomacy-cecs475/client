@@ -7,8 +7,6 @@ import '../css/lobby.css';
 import { Connect } from '../../sockets/Connect';
 import { getToken } from '../../authentication/Token';
 
-// global.socket = Connect(':4000');
-
 class Lobby extends Component {
     constructor() {
         super();
@@ -20,18 +18,18 @@ class Lobby extends Component {
             status: undefined
         };
 
-      global.socket.on('reconnect user:response', (data) => {
-        console.log("reconnect = ", data);
-      });
-      var tok = getToken();
-      console.log("BEFORE reconnect", tok);
-      global.socket.emit("reconnect user", tok);
+      //Reconnect the user, because each time the page is change, user is disconnect
+      global.socket.emit("reconnect user", getToken());
     }
 
     componentDidMount() {
-      // getLobbyList(global.socket).then(response => {
-      //   console.log("response = " + response);
-      // });
+
+
+      global.socket.on('reconnect user:response', (data) => {
+
+        console.log("data = ", data);
+      });
+
 
         // Initialize until the server communication works
         this.setState({
@@ -50,7 +48,13 @@ class Lobby extends Component {
         const { players, max_players, lobby_name, round_duration, status } = this.state;
 
         if (!players || !max_players)
-            return (<p>Loading..</p>);
+            return (
+              <div className="d-flex justify-content-center mt-4 pt-4">
+                <div className="spinner-border" role="status">
+                  <span className="sr-only"></span>
+                </div>
+              </div>
+            );
         return (
             <div>
                 <Header backDestination="/lobbies" />

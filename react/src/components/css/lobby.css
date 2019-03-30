@@ -29,3 +29,7 @@
     min-height: 300px;
     margin-bottom: 1em;
 }
+
+.spinner-border {
+  width: 4rem; height: 4rem;
+}

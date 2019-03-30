@@ -18,7 +18,10 @@ class LobbiesList extends Component {
         global.socket.on('join room:response', (data) => {
           console.log("response = ", data);
           if (data.success)
+          {
+            //TODO change location
             createNotification('success', "Join room was succesful");
+          }
           else
             createNotification('error', data.response);
         });
