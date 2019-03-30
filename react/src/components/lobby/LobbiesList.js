@@ -2,29 +2,40 @@ import React, { Component } from 'react';
 import Header from '../header/Header';
 import '../css/lobbies_list.css';
 import '../css/bg.css';
+import { createNotification } from '../../misc/CreateNotification';
 
 class LobbiesList extends Component {
     constructor() {
         super();
         this.state = {
-            lobbies: undefined
+            lobbies: undefined,
+            tokenId: undefined
         };
 
+        //Put all the socket on soket folder
         global.socket.emit("list room");
+
+        global.socket.on('join room:response', (data) => {
+          console.log("response = ", data);
+          if (data.success)
+            createNotification('success', "Join room was succesful");
+          else
+            createNotification('error', data.response);
+        });
     }
 
     componentDidMount() {
         // Initialize some test lobbies until the server communication works
 
-        // global.socket.on('list room:response', (data) => {
-        //   this.setState({lobbies:data.response});
-        // });
-
-        this.setState({
-            lobbies: [
-                { tokenId: 0, name: "test", isPublic: false, status: "In lobby", users: [{username: "test2"}]}
-            ]
+        global.socket.on('list room:response', (data) => {
+          this.setState({lobbies:data.response});
         });
+
+        // this.setState({
+        //     lobbies: [
+        //         { tokenId: 0, name: "test", isPublic: false, status: "In lobby", users: [{username: "test2"}]}
+        //     ]
+        // });
 
         // this.setState({
         //     lobbies: [
@@ -54,15 +65,19 @@ class LobbiesList extends Component {
               //If the room need a password, we add the lock icon and set the modal when the user click on the row
               if (!lobby.public)
                 return (
-                  <tr className="lobby-list-row" data-toggle="modal" data-target="#passwordModal" key={lobby.tokenId}>
+                  <tr className="lobby-list-row" data-toggle="modal" data-target="#passwordModal" key={lobby.tokenId} onClick={() => this.setState({tokenId: lobby.tokenId})}>
                     <th scope="row">{lobby.name}</th>
                     <td>{lobby.users[0].username}</td>
                     <td>{String(lobby.users.length)}</td>
                     <td>In lobby<i className="fas fa-lock ml-4"></i></td>
                 </tr >
                 );
+                //Room public
                 return (
-                  <tr className="lobby-list-row" key={lobby.tokenId}>
+                  <tr className="lobby-list-row" key={lobby.tokenId} onClick={() => {
+                      this.setState({tokenId: lobby.tokenId});
+                      global.socket.emit("join room", this.state.tokenId, "");
+                  }}>
                         <th scope="row">{lobby.name}</th>
                         <td>{lobby.users[0].username}</td>
                         <td>{String(lobby.users.length)}</td>
@@ -103,6 +118,11 @@ class LobbiesList extends Component {
         // }));
     }
 
+    joinRoomPrivate() {
+      console.log("pass = ", this.refs.password.value);
+      global.socket.emit("join room", this.state.tokenId, this.refs.password.value);
+    }
+
     render() {
         return (
             <div>
@@ -132,11 +152,11 @@ class LobbiesList extends Component {
                         </button>
                       </div>
                       <div className="modal-body">
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                        <input ref="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
                       </div>
                       <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" className="btn btn-primary">Validate</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.joinRoomPrivate.bind(this)}>Validate</button>
                       </div>
                     </div>
                   </div>

@@ -7,7 +7,7 @@ import '../css/lobby.css';
 import { Connect } from '../../sockets/Connect';
 import { getToken } from '../../authentication/Token';
 
-global.socket = Connect(':4000');
+// global.socket = Connect(':4000');
 
 class Lobby extends Component {
     constructor() {
