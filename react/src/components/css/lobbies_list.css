@@ -47,3 +47,17 @@
   border-top-right-radius: 10px;
   border-radius: 20px;
 }
+
+h5 {
+  color: black;
+}
+
+.btn-primary {
+  background-color: #61A1C3;
+  border-color: #61A1C3;
+}
+
+.btn-primary:hover {
+  background-color: #1e2e3d;
+  border-color: #1e2e3d;
+}

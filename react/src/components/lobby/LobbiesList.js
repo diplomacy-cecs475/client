@@ -16,9 +16,16 @@ class LobbiesList extends Component {
     componentDidMount() {
         // Initialize some test lobbies until the server communication works
 
-        global.socket.on('list room:response', (data) => {
-          this.setState({lobbies:data.response});
+        // global.socket.on('list room:response', (data) => {
+        //   this.setState({lobbies:data.response});
+        // });
+
+        this.setState({
+            lobbies: [
+                { tokenId: 0, name: "test", isPublic: false, status: "In lobby", users: [{username: "test2"}]}
+            ]
         });
+
         // this.setState({
         //     lobbies: [
         //         { id: 0, name: "test", owner: "antoine", nb_players: "1/4", status: "In lobby" },
@@ -44,17 +51,27 @@ class LobbiesList extends Component {
         return (lobbies.map(lobby => {
             // Display a different line if the lobby is available
             if (lobby.started !== true) {
+              //If the room need a password, we add the lock icon and set the modal when the user click on the row
+              if (!lobby.public)
                 return (
-                    <tr className="lobby-list-row" key={lobby.tokenId}>
+                  <tr className="lobby-list-row" data-toggle="modal" data-target="#passwordModal" key={lobby.tokenId}>
+                    <th scope="row">{lobby.name}</th>
+                    <td>{lobby.users[0].username}</td>
+                    <td>{String(lobby.users.length)}</td>
+                    <td>In lobby<i className="fas fa-lock ml-4"></i></td>
+                </tr >
+                );
+                return (
+                  <tr className="lobby-list-row" key={lobby.tokenId}>
                         <th scope="row">{lobby.name}</th>
                         <td>{lobby.users[0].username}</td>
                         <td>{String(lobby.users.length)}</td>
-                        <td>In lobby{this.isPublic(lobby.pubic)}</td>
+                        <td>In lobby</td>
                     </tr >
                 );
             }
             return (
-                <tr className="lobby-list-row-disabled" data-toggle="modal" data-id="1" data-target="#passwordModal" key={lobby.tokenId}>
+                <tr className="lobby-list-row-disabled" key={lobby.tokenId}>
                     <th scope="row">{lobby.name}</th>
                     <td>Owner</td>
                     <td>{lobby.users.length}</td>
@@ -105,21 +122,21 @@ class LobbiesList extends Component {
                         </tbody>
                     </table>
                 </div>
-                <div className="modal fade" id="passwordModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div className="modal fade" id="passwordModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div className="modal-dialog" role="document">
                     <div className="modal-content">
                       <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 className="modal-title" id="exampleModalLabel">Password needed</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div className="modal-body">
-
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
                       </div>
                       <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary">Save changes</button>
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" className="btn btn-primary">Validate</button>
                       </div>
                     </div>
                   </div>
