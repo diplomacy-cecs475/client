@@ -104,7 +104,8 @@ class LobbiesList extends Component {
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => {
-                  JoinRoom(this.state.tokenId, document.getElementById('room_name').value).then(res => {
+                  JoinRoom(this.state.tokenId, document.getElementById('password').value).then(res => {
+                    console.log(res);
                     window.location = "/lobby/" + res.tokenId;
                   });
                 }}>Validate

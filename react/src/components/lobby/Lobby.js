@@ -25,6 +25,7 @@ class Lobby extends Component {
                 lobby_name: response.name,
                 max_players: response.nbUsersMax,
                 players: response.users,
+                round_duration: response.timer,
                 status: 'Waiting for players'
             });
         });
