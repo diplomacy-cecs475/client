@@ -8,8 +8,8 @@ function createEmitPromise(eventName, dataToSend) {
         global.socket.on(eventName + ":response", (data) => {
             // if the server send a negative response
             if (data.success === false) {
-                createNotification('error', "An error was received from the server");
-                reject("An error was received from the server");
+                createNotification('error', data.response);
+                reject(data.response);
                 return;
             }
             // resolve the response
@@ -28,7 +28,7 @@ export function emit(eventName, dataToSend, reconnect = true) {
     if (reconnect) {
         return (new Promise((resolve, reject) => {
             // reconnect
-            emit("reconnect user", getToken(), false).then(response => {
+            emit("reconnect user", { tokenId: getToken() }, false).then(response => {
                 // emit the original data
                 createEmitPromise(eventName, dataToSend)
                     .then(response => resolve(response))

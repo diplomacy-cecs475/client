@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import Header from '../header/Header';
 import { createNotification } from '../../misc/CreateNotification';
-import { CreateRoom } from '../../sockets/CreateRoom';
+import { CreateRoom } from '../../sockets/Rooms';
 import "../css/bg.css";
 import "../css/create_lobby.css";
 
 class CreateLobby extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      status: undefined
-    };
-  }
-
   create() {
     var name = document.getElementById('room_name').value;
     var password = document.getElementById('room_password').value;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Header from '../header/Header';
 import Chat from '../chat/Chat';
+import { GetRoomInfo } from '../../sockets/Rooms';
 import '../css/bg.css';
 import '../css/lobby.css';
 
@@ -18,16 +19,14 @@ class Lobby extends Component {
     }
 
     componentDidMount() {
-        // Initialize until the server communication works
-        this.setState({
-            players: [
-                { username: 'Antoine', admin: true },
-                { username: localStorage.getItem('username'), admin: false }
-            ],
-            lobby_name: "test",
-            max_players: '4',
-            round_duration: "5:00 min",
-            status: 'Waiting for players'
+        GetRoomInfo(this.props.match.params.lobbyid).then(response => {
+            console.log(response);
+            this.setState({
+                lobby_name: response.name,
+                max_players: response.nbUsersMax,
+                players: response.users,
+                status: 'Waiting for players'
+            });
         });
     }
 
@@ -50,10 +49,10 @@ class Lobby extends Component {
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <h2 className="lobby-content-title text-center">Players ({players.length + "/" + max_players})</h2>
                             <div>
-                                {players.map(player => {
+                                {players.map((player, index) => {
                                     if (player.admin) {
                                         return (
-                                            <p className="lobby-player">{player.username}
+                                            <p key={"player" + index} className="lobby-player">{player.username}
                                                 <label className="lobby-player-admin">Admin</label>
                                             </p>);
                                     }
