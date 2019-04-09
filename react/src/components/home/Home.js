@@ -11,6 +11,12 @@ import '../css/home.css';
 global.socket = Connect('http://statecraft.tk');
 
 class Home extends Component {
+    componentDidMount() {
+        // set as default the last username used
+        var username = localStorage.getItem("username");
+        document.getElementById("input-username").value = username;
+    }
+
     onAuthenticate(e, url) {
         // Get the value of the username input
         var username = document.getElementById("input-username").value;
@@ -26,6 +32,8 @@ class Home extends Component {
         Authenticate(username).then(response => {
             // save the token
             setToken(response.tokenId);
+            // save the username
+            localStorage.setItem("username", response.username);
             // change to a new page
             window.location = url;
         });
