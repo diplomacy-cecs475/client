@@ -8,7 +8,7 @@ import { Connect } from '../../sockets/Connect';
 import '../css/home.css';
 
 // connect to the server
-global.socket = Connect(':4000');
+global.socket = Connect('http://statecraft.tk');
 
 class Home extends Component {
     onAuthenticate(e, url) {

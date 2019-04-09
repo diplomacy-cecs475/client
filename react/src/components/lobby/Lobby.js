@@ -20,7 +20,6 @@ class Lobby extends Component {
 
     componentDidMount() {
         GetRoomInfo(this.props.match.params.lobbyid).then(response => {
-            console.log(response);
             this.setState({
                 lobby_name: response.name,
                 max_players: response.nbUsersMax,
@@ -58,7 +57,7 @@ class Lobby extends Component {
                                             </p>);
                                     }
                                     else
-                                        return (<p className="lobby-player">{player.username}</p>);
+                                        return (<p key={"player" + index} className="lobby-player">{player.username}</p>);
                                 })}
                             </div>
                         </div>

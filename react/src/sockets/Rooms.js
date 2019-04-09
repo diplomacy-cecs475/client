@@ -5,7 +5,7 @@ export function CreateRoom(roomName, password, playerLimit, timer) {
         name: roomName,
         publicVisibility: (password.length === 0 ? true : false),
         password: password,
-        timer: timer,
+        time: timer,
         nbUsersMax: playerLimit
     }));
 }
