@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Header from '../header/Header';
 import Chat from '../chat/Chat';
+import { GetRoomInfo } from '../../sockets/Rooms';
 import '../css/bg.css';
 import '../css/lobby.css';
-import { Connect } from '../../sockets/Connect';
-import { getToken } from '../../authentication/Token';
 
 class Lobby extends Component {
     constructor() {
@@ -17,30 +16,17 @@ class Lobby extends Component {
             round_duration: undefined,
             status: undefined
         };
-
-      //Reconnect the user, because each time the page is change, user is disconnect
-      global.socket.emit("reconnect user", getToken());
     }
 
     componentDidMount() {
-
-
-      global.socket.on('reconnect user:response', (data) => {
-
-        console.log("data = ", data);
-      });
-
-
-        // Initialize until the server communication works
-        this.setState({
-            players: [
-                { username: 'Antoine', admin: true },
-                { username: localStorage.getItem('username'), admin: false }
-            ],
-            lobby_name: "test",
-            max_players: '4',
-            round_duration: "5:00 min",
-            status: 'Waiting for players'
+        GetRoomInfo(this.props.match.params.lobbyid).then(response => {
+            this.setState({
+                lobby_name: response.name,
+                max_players: response.nbUsersMax,
+                players: response.users,
+                round_duration: response.timer,
+                status: 'Waiting for players'
+            });
         });
     }
 
@@ -49,11 +35,11 @@ class Lobby extends Component {
 
         if (!players || !max_players)
             return (
-              <div className="d-flex justify-content-center mt-4 pt-4">
-                <div className="spinner-border" role="status">
-                  <span className="sr-only"></span>
+                <div className="d-flex justify-content-center mt-4 pt-4">
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only"></span>
+                    </div>
                 </div>
-              </div>
             );
         return (
             <div>
@@ -63,15 +49,15 @@ class Lobby extends Component {
                         <div className="col-lg-4 col-md-6 col-sm-6">
                             <h2 className="lobby-content-title text-center">Players ({players.length + "/" + max_players})</h2>
                             <div>
-                                {players.map(player => {
+                                {players.map((player, index) => {
                                     if (player.admin) {
                                         return (
-                                            <p className="lobby-player">{player.username}
+                                            <p key={"player" + index} className="lobby-player">{player.username}
                                                 <label className="lobby-player-admin">Admin</label>
                                             </p>);
                                     }
                                     else
-                                        return (<p className="lobby-player">{player.username}</p>);
+                                        return (<p key={"player" + index} className="lobby-player">{player.username}</p>);
                                 })}
                             </div>
                         </div>

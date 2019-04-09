@@ -1,8 +1,5 @@
+const { emit } = require('./socket_functions/emit');
 
-export function Authenticate(socket, username) {
-    return (new Promise((resolve, reject) => {
-        socket.emit("add user", username);
-        localStorage.setItem('username', username);
-        resolve();
-    }));
+export function Authenticate(username) {
+    return (emit("add user", { username: username }, false));
 }

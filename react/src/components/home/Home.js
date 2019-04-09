@@ -8,43 +8,34 @@ import { Connect } from '../../sockets/Connect';
 import '../css/home.css';
 
 // connect to the server
-global.socket = Connect(':4000');
+global.socket = Connect('http://statecraft.tk');
 
 class Home extends Component {
-
-    constructor() {
-      super();
-
-      global.socket.on('add user:response', (data) => {
-        console.log("data home = ", data);
-        if (data.success)
-          setToken(data.response.tokenId);
-        else
-          createNotification('warning', data.response);
-      });
-
+    componentDidMount() {
+        // set as default the last username used
+        var username = localStorage.getItem("username");
+        document.getElementById("input-username").value = username;
     }
 
     onAuthenticate(e, url) {
         // Get the value of the username input
         var username = document.getElementById("input-username").value;
+        e.preventDefault();
 
         // If no username was found
         if (!username) {
-            // Do not change page
-            e.preventDefault();
             // Display a notification warning
             createNotification('warning', 'Please insert your username');
             return;
         }
         // Authenticate with the server
-        Authenticate(global.socket, username).then(response => {
-            // Save the token received from the server
-            var usernameInput = document.getElementById("input-username");
-            if (usernameInput)
-                usernameInput.value = username;
-            // setToken("lol");
-            // window.location = url;
+        Authenticate(username).then(response => {
+            // save the token
+            setToken(response.tokenId);
+            // save the username
+            localStorage.setItem("username", response.username);
+            // change to a new page
+            window.location = url;
         });
     }
     render() {
