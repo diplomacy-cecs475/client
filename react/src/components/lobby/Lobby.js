@@ -4,7 +4,6 @@ import Header from '../header/Header';
 import Chat from '../chat/Chat';
 import '../css/bg.css';
 import '../css/lobby.css';
-import { Connect } from '../../sockets/Connect';
 import { getToken } from '../../authentication/Token';
 
 class Lobby extends Component {
@@ -18,17 +17,17 @@ class Lobby extends Component {
             status: undefined
         };
 
-      //Reconnect the user, because each time the page is change, user is disconnect
-      global.socket.emit("reconnect user", getToken());
+        //Reconnect the user, because each time the page is change, user is disconnect
+        global.socket.emit("reconnect user", getToken());
     }
 
     componentDidMount() {
 
 
-      global.socket.on('reconnect user:response', (data) => {
+        global.socket.on('reconnect user:response', (data) => {
 
-        console.log("data = ", data);
-      });
+            console.log("data = ", data);
+        });
 
 
         // Initialize until the server communication works
@@ -49,11 +48,11 @@ class Lobby extends Component {
 
         if (!players || !max_players)
             return (
-              <div className="d-flex justify-content-center mt-4 pt-4">
-                <div className="spinner-border" role="status">
-                  <span className="sr-only"></span>
+                <div className="d-flex justify-content-center mt-4 pt-4">
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only"></span>
+                    </div>
                 </div>
-              </div>
             );
         return (
             <div>
