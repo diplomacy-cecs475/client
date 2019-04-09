@@ -24,7 +24,7 @@ class Map extends Component {
             { name: "Aeg", position: { x: 68, y: 89 } },
             { name: "Eas", position: { x: 77, y: 94 } },
             { name: "Black Sea", position: { x: 77, y: 72 } },
-           
+
             { name: "Naf", position: { x: 12, y: 93 } },
             { name: "Tun", position: { x: 35, y: 93 } },
             { name: "Por", position: { x: 3, y: 75 } },
@@ -35,14 +35,14 @@ class Map extends Component {
             { name: "Pic", position: { x: 28, y: 55.5 } },
             { name: "Bur", position: { x: 31, y: 62 } },
             { name: "Mar", position: { x: 29, y: 70 } },
-            
+
             { name: "Cly", position: { x: 23, y: 34 } },
             { name: "Edi", position: { x: 25.5, y: 36 } },
             { name: "Lyp", position: { x: 23, y: 39 } },
             { name: "Yor", position: { x: 26.5, y: 44 } },
             { name: "Wal", position: { x: 22, y: 47 } },
             { name: "Lon", position: { x: 26, y: 49 } },
-            
+
             { name: "Bel", position: { x: 32, y: 54 } },
             { name: "Hol", position: { x: 35.5, y: 49 } },
             { name: "Ruh", position: { x: 37, y: 55 } },
@@ -178,8 +178,8 @@ class Map extends Component {
     render() {
         return (
             <div className="col-12 map">
-                {this.displayTerritories()}
                 {this.displaySupplyCenters()}
+                {this.displayTerritories()}
                 {/* Display an empty element to set the correct size to the map */}
                 <label style={
                     {

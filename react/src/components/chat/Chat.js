@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { sendChatMessage, sendChatMessageToLobby } from '../../sockets/Chat';
+import { sendMessage, sendGlobalMessage } from '../../sockets/Messages';
 import '../css/chat.css';
 
 class Chat extends Component {
@@ -11,20 +11,21 @@ class Chat extends Component {
     }
 
     componentDidUpdate() {
+        if (this.props.lobbyChat) {
+            global.socket.on("msgGlobal", (data) => {
+                this.addNewMessage(data.msg, data.userFrom);
+            });
+        }
+        else {
+            global.socket.on("msgPriv", (data) => {
+                this.addNewMessage(data.msg, data.userFrom);
+            });
+        }
         // Reset the position of the chat bar to the bottom
         this.resetChatScrollPositon();
     }
 
-    onChatSubmit() {
-        // Get the chat field 
-        var message = document.getElementById("chat-input").value;
-
-        // Send the message to the server using sockets
-        if (this.props.lobbyChat)
-            sendChatMessageToLobby(this.props.contact, message);
-        else
-            sendChatMessage(this.props.contact, message);
-
+    addNewMessage(message, sender) {
         // Add my message to the chat
         var { messages } = this.state;
 
@@ -43,9 +44,24 @@ class Chat extends Component {
             + seconds;
 
         // Add the message
-        messages.push({ message: message, date: datetime, username: localStorage.getItem('username') });
-        // Send the message
+        messages.push({ message: message, date: datetime, username: sender });
         this.setState({ messages: messages });
+    }
+
+    onChatSubmit() {
+        // Get the chat field 
+        var message = document.getElementById("chat-input").value;
+
+        // Send the message to the server using sockets
+        // if it's a global chat
+        if (this.props.lobbyChat) {
+            sendGlobalMessage(message);
+        }
+        else {
+            sendMessage(message, this.props.contact);
+        }
+        // add the message to the chat
+        this.addNewMessage(message, localStorage.getItem('username'));
         // Clear the chat input
         document.getElementById("chat-input").value = "";
     }
@@ -68,7 +84,7 @@ class Chat extends Component {
     render() {
         const { messages } = this.state;
 
-        if (!this.props.contact) {
+        if (!this.props.lobbyChat && !this.props.contact) {
             return (<p>Contact not found</p>);
         }
         return (
