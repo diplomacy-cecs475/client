@@ -19,31 +19,6 @@ class LobbiesList extends Component {
         });
     }
 
-
-    // joinRoom() {
-    //   // console.log("pass = ", this.refs.password.value);
-    //   JoinRoom(this.state.tokenId, this.refs.password.value).then(res => {
-    //     window.location = "/lobby/" + res.tokenId;
-    //   });
-    // }
-
-    componentDidMount() {
-        // Initialize some test lobbies until the server communication works
-
-        // this.setState({
-        //     lobbies: [
-        //         { tokenId: 0, name: "test", isPublic: false, status: "In lobby", users: [{username: "test2"}]}
-        //     ]
-        // });
-
-        // this.setState({
-        //     lobbies: [
-        //         { id: 0, name: "test", owner: "antoine", nb_players: "1/4", status: "In lobby" },
-        //         { id: 1, name: "room 2", owner: "bob", nb_players: "7/7", status: "Playing" }
-        //     ]
-        // });
-    }
-
     isPublic(val) {
       if (!val)
         return (<i className="fas fa-lock ml-4"></i>);

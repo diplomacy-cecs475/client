@@ -5,5 +5,5 @@ export function ListLobbies() {
 }
 
 export function JoinRoom(tokenId, password) {
-  return emit("join room:response", tokenId, password);
+  return emit("join room:response", {token: tokenId, password: password});
 }
