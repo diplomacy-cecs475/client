@@ -71,7 +71,7 @@ class LobbiesList extends Component {
                   <tr className="lobby-list-row" data-toggle="modal" data-target="#passwordModal" key={lobby.tokenId} onClick={() => this.setState({tokenId: lobby.tokenId})}>
                     <th scope="row">{lobby.name}</th>
                     <td>{lobby.users[0].username}</td>
-                    <td>{String(lobby.users.length)}</td>
+                    <td>{String(lobby.users.length)} / {lobby.nbUsersMax}</td>
                     <td>In lobby<i className="fas fa-lock ml-4"></i></td>
                 </tr >
                 );
@@ -83,7 +83,7 @@ class LobbiesList extends Component {
                   }}>
                         <th scope="row">{lobby.name}</th>
                         <td>{lobby.users[0].username}</td>
-                        <td>{String(lobby.users.length)}</td>
+                        <td>{String(lobby.users.length)} / {lobby.nbUsersMax}</td>
                         <td>In lobby</td>
                     </tr >
                 );

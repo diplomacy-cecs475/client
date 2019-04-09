@@ -16,7 +16,7 @@ class CreateLobby extends Component {
         if (data.success)
         {
           console.log("test"); //if we change the location it will disconnect the logout the user and destroy the room
-          // window.location = "/lobby/" + data.response.tokenId;
+          window.location = "/lobby/" + data.response.tokenId;
         }
         else {
           createNotification('error', data.response);
@@ -26,11 +26,18 @@ class CreateLobby extends Component {
 
   create() {
     var name = this.refs.name.value.trim();
+    var min;
 
+    console.log("timer 1 =", this.refs.timer1.checked);
+    console.log("timer 2 =", this.refs.timer2.checked);
+
+    min = this.refs.timer1.checked ? 5 : (this.refs.timer2.checked ? 15 : (this.refs.timer3.checked ? 30 : (this.refs.timer4.checked ? 60 : 5)));
     if (name === "")
       createNotification('warning', 'Missing room name');
     else
-      global.socket.emit("create room", this.refs.name.value, this.refs.password.value === "" ? true : false, this.refs.password.value);
+    {
+      global.socket.emit("create room", this.refs.name.value, this.refs.password.value === "" ? true : false, this.refs.password.value, min, this.refs.players.value);
+    }
   }
 
   render() {
