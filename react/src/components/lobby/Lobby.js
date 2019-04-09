@@ -4,7 +4,6 @@ import Header from '../header/Header';
 import Chat from '../chat/Chat';
 import '../css/bg.css';
 import '../css/lobby.css';
-import { getToken } from '../../authentication/Token';
 
 class Lobby extends Component {
     constructor() {
@@ -16,20 +15,9 @@ class Lobby extends Component {
             round_duration: undefined,
             status: undefined
         };
-
-        //Reconnect the user, because each time the page is change, user is disconnect
-        global.socket.emit("reconnect user", getToken());
     }
 
     componentDidMount() {
-
-
-        global.socket.on('reconnect user:response', (data) => {
-
-            console.log("data = ", data);
-        });
-
-
         // Initialize until the server communication works
         this.setState({
             players: [

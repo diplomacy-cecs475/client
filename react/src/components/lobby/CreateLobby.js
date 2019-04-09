@@ -11,16 +11,6 @@ class CreateLobby extends Component {
     this.state = {
       status: undefined
     };
-
-    global.socket.on('create room:response', (data) => {
-      if (data.success) {
-        console.log("test"); //if we change the location it will disconnect the logout the user and destroy the room
-        // window.location = "/lobby/" + data.response.tokenId;
-      }
-      else {
-        createNotification('error', data.response);
-      }
-    });
   }
 
   create() {
@@ -28,14 +18,14 @@ class CreateLobby extends Component {
     var password = document.getElementById('room_password').value;
     var player_limit = document.getElementById('room_player_limit').value;
 
-    if (name === "")
-      createNotification('warning', 'Missing room name');
+    var min = this.refs.timer1.checked ? 5 : (this.refs.timer2.checked ? 15 : (this.refs.timer3.checked ? 30 : (this.refs.timer4.checked ? 60 : 5)));
+    if (name === "" || player_limit === "")
+      createNotification('warning', 'Some fields are empty');
     else {
-      CreateRoom(name, password, player_limit).then(response => {
-        console.log(response);
+      CreateRoom(name, password, player_limit, min).then(response => {
+        window.location = "/lobby/" + response.tokenId;
       });
     }
-    // global.socket.emit("create room", this.refs.name.value, this.refs.password.value === "" ? true : false, this.refs.password.value);
   }
 
   render() {
@@ -43,7 +33,7 @@ class CreateLobby extends Component {
       <div>
         <Header />
         <div className="container bg-card pt-1 pb-2 pt-4">
-          <input id="room_name" className="col-2 offset-5 form-control mb-4" type="text" placeholder="Room name" />
+          <input id="room_name" className="col-2 offset-5 form-control mb-4" type="text" placeholder="Room name" autoComplete="off" />
           <input id="room_password" className="col-2 offset-5 form-control mb-4" type="password" placeholder="Password" autoComplete="off" />
           <select id="room_player_limit" className="custom-select custom-select-lg mb-3 col-2 offset-5">
             <option value="" hidden >Total players</option>
