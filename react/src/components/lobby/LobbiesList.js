@@ -3,6 +3,7 @@ import Header from '../header/Header';
 import '../css/lobbies_list.css';
 import '../css/bg.css';
 import { createNotification } from '../../misc/CreateNotification';
+import { ListLobbies, JoinRoom} from '../../sockets/ListLobbies';
 
 class LobbiesList extends Component {
     constructor() {
@@ -12,27 +13,22 @@ class LobbiesList extends Component {
             tokenId: undefined
         };
 
-        //Put all the socket on soket folder
-        global.socket.emit("list room");
-
-        global.socket.on('join room:response', (data) => {
-          console.log("response = ", data);
-          if (data.success)
-          {
-            //TODO change location
-            createNotification('success', "Join room was succesful");
-          }
-          else
-            createNotification('error', data.response);
+        ListLobbies().then(res => {
+          console.log("Res = ", res);
+          this.setState({lobbies:res});
         });
     }
 
+
+    // joinRoom() {
+    //   // console.log("pass = ", this.refs.password.value);
+    //   JoinRoom(this.state.tokenId, this.refs.password.value).then(res => {
+    //     window.location = "/lobby/" + res.tokenId;
+    //   });
+    // }
+
     componentDidMount() {
         // Initialize some test lobbies until the server communication works
-
-        global.socket.on('list room:response', (data) => {
-          this.setState({lobbies:data.response});
-        });
 
         // this.setState({
         //     lobbies: [
@@ -78,8 +74,9 @@ class LobbiesList extends Component {
                 //Room public
                 return (
                   <tr className="lobby-list-row" key={lobby.tokenId} onClick={() => {
-                      this.setState({tokenId: lobby.tokenId});
-                      global.socket.emit("join room", this.state.tokenId, "");
+                    JoinRoom(lobby.tokenId, "").then(res => {
+                      window.location = "/lobby/" + res.tokenId;
+                    });
                   }}>
                         <th scope="row">{lobby.name}</th>
                         <td>{lobby.users[0].username}</td>
@@ -121,11 +118,6 @@ class LobbiesList extends Component {
         // }));
     }
 
-    joinRoomPrivate() {
-      console.log("pass = ", this.refs.password.value);
-      global.socket.emit("join room", this.state.tokenId, this.refs.password.value);
-    }
-
     render() {
         return (
             <div>
@@ -155,11 +147,16 @@ class LobbiesList extends Component {
                         </button>
                       </div>
                       <div className="modal-body">
-                        <input ref="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                        <input id="password" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
                       </div>
                       <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.joinRoomPrivate.bind(this)}>Validate</button>
+                        <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => {
+                          JoinRoom(this.state.tokenId, document.getElementById('room_name').value).then(res => {
+                            window.location = "/lobby/" + res.tokenId;
+                          });
+                          }}>Validate
+                        </button>
                       </div>
                     </div>
                   </div>
