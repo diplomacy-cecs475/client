@@ -9,6 +9,7 @@ import '../css/home.css';
 
 // connect to the server
 global.socket = Connect('http://statecraft.tk');
+// global.socket = Connect(':4000');
 
 class Home extends Component {
     componentDidMount() {

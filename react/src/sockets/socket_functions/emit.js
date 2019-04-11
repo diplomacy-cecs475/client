@@ -15,8 +15,8 @@ function createEmitPromise(eventName, dataToSend) {
             // resolve the response
             resolve(data.response);
         });
-        // emit
-        global.socket.emit(eventName, dataToSend);
+        // emit after 100ms
+        setTimeout(() => global.socket.emit(eventName, dataToSend), 100);
         // Add a 5 seconds timeout in case the server does not respond
         setTimeout(() => { reject("Request has timeout") }, 5000);
     }));

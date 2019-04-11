@@ -10,7 +10,7 @@ class Chat extends Component {
         };
     }
 
-    componentDidUpdate() {
+    componentDidMount() {
         if (this.props.lobbyChat) {
             global.socket.on("msgGlobal", (data) => {
                 this.addNewMessage(data.msg, data.userFrom);
@@ -21,6 +21,9 @@ class Chat extends Component {
                 this.addNewMessage(data.msg, data.userFrom);
             });
         }
+    }
+
+    componentDidUpdate() {
         // Reset the position of the chat bar to the bottom
         this.resetChatScrollPositon();
     }

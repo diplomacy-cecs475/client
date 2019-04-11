@@ -5,6 +5,7 @@ export function sendMessage(message, contact) {
 }
 
 export function sendGlobalMessage(message) {
+    console.log("send global msg ", message);
     return (emit("msg global", { msg: message }));
 
 }
