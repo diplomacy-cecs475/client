@@ -27,7 +27,7 @@ class CreateLobby extends Component {
         <Header />
         <div className="container bg-card pt-1 pb-2 pt-4">
           <input id="room_name" className="col-2 offset-5 form-control mb-4" type="text" placeholder="Room name" autoComplete="off" />
-          <input id="room_password" className="col-2 offset-5 form-control mb-4" type="password" placeholder="Password" autoComplete="off" />
+          <input id="room_password" className="col-2 offset-5 form-control mb-4" type="password" placeholder="Password" autoComplete="new-password" />
           <select id="room_player_limit" className="custom-select custom-select-lg mb-3 col-2 offset-5">
             <option value="" hidden >Total players</option>
             <option value="2">2</option>

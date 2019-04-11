@@ -11,9 +11,22 @@ class LobbiesList extends Component {
       lobbies: undefined,
       tokenId: undefined
     };
+    this.listLobbiesInterval = null;
+    this.listLobbies = this.listLobbies.bind(this);
+  }
 
+  componentDidMount() {
+    this.listLobbies();
+    this.listLobbiesInterval = setInterval(this.listLobbies, 1000);
+  }
+
+  componentWillUnmount() {
+    if (this.listLobbiesInterval)
+      clearInterval(this.listLobbiesInterval);
+  }
+
+  listLobbies() {
     ListLobbies().then(res => {
-      console.log("Res = ", res);
       this.setState({ lobbies: res });
     });
   }
@@ -30,7 +43,6 @@ class LobbiesList extends Component {
     if (!lobbies)
       return;
 
-    console.log(lobbies);
     // Display each lobby
     return (lobbies.map(lobby => {
       // Display a different line if the lobby is available
@@ -70,6 +82,14 @@ class LobbiesList extends Component {
     }));
   }
 
+  onJoinRoom() {
+    // send the request to the server
+    JoinRoom(this.state.tokenId, document.getElementById('password').value).then(res => {
+      // move to the lobby page
+      window.location = "/lobby/" + res.tokenId;
+    });
+  }
+
   render() {
     return (
       <div>
@@ -103,13 +123,9 @@ class LobbiesList extends Component {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => {
-                  JoinRoom(this.state.tokenId, document.getElementById('password').value).then(res => {
-                    console.log(res);
-                    window.location = "/lobby/" + res.tokenId;
-                  });
-                }}>Validate
-                        </button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { this.onJoinRoom() }}>
+                  Validate
+                </button>
               </div>
             </div>
           </div>
