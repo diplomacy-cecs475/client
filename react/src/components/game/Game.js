@@ -21,7 +21,7 @@ class Game extends Component {
         // Debug initialization until the server is working
         this.setState({
             players: [
-                { id: 1, username: "Antoine", country: "France", fleet: 1, army: 2, supply: 3},
+                { id: 1, username: "Antoine", country: "France", fleet: 1, army: 2, supply: 3 },
                 { id: 2, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
                 { id: 3, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
                 { id: 4, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
@@ -137,23 +137,23 @@ class Game extends Component {
             <div className="game-right-element game-inventory col-lg-12 col-md-12 col-sm-12">
                 <h3 className="text-center game-right-title">Inventory</h3>
                 <div className="container inventory">
-                  <ul>
-                    <li className="d-flex justify-content-between align-items-center mt-4">
-                      <span className="fleet-icon mx-auto"><i className="fas fa-ship fa-3x"></i>
-                        <span className="icon-title ml-4">Fleet x</span>
-                      </span>
-                    </li>
-                    <li className="d-flex justify-content-between align-items-center mt-4">
-                      <span className="army-icon mx-auto"><i className="fas fa-space-shuttle fa-3x"></i>
-                        <span className="icon-title ml-4">Army x</span>
-                      </span>
-                    </li>
-                    <li className="d-flex justify-content-between align-items-center mt-4">
-                      <span className="center-icon mx-auto"><i className="fas fa-warehouse fa-3x"></i>
-                        <span className="icon-title ml-4">Supply center x</span>
-                      </span>
-                    </li>
-                  </ul>
+                    <ul>
+                        <li className="d-flex justify-content-between align-items-center mt-4">
+                            <span className="fleet-icon mx-auto"><i className="fas fa-anchor fa-3x"></i>
+                                <span className="icon-title ml-4">Fleet x</span>
+                            </span>
+                        </li>
+                        <li className="d-flex justify-content-between align-items-center mt-4">
+                            <span className="army-icon mx-auto"><i className="fas fa-male fa-3x"></i>
+                                <span className="icon-title ml-4">Army x</span>
+                            </span>
+                        </li>
+                        <li className="d-flex justify-content-between align-items-center mt-4">
+                            <span className="center-icon mx-auto"><i className="fas fa-warehouse fa-3x"></i>
+                                <span className="icon-title ml-4">Supply center x</span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         );

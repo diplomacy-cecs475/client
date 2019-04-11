@@ -140,7 +140,28 @@ class Map extends Component {
             { position: { x: 42, y: 70 }, home_territory: "Venice" },
             { position: { x: 42.5, y: 78 }, home_territory: "Rome" },
             { position: { x: 48.5, y: 84 }, home_territory: "Naples" },
-        ]
+        ];
+
+        this.state = {
+            my_territories: []
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            my_territories: [
+                { name: "Bre" },
+                { name: "Paris" },
+            ]
+        });
+    }
+
+    // check if a territory is friendly
+    isFriendlyTerritory(territoryName) {
+        const { my_territories } = this.state;
+        if (!my_territories)
+            return (false);
+        return (my_territories.find((territory) => { return (territory.name === territoryName) }));
     }
 
     displaySupplyCenters() {
@@ -157,21 +178,82 @@ class Map extends Component {
         });
     }
 
-    displayTerritories() {
-        return this.territories.map((territory) => {
-            return (
-                <label key={territory.name}
-                    className={"map-territory-name " + (territory.rotate !== undefined ? "rotate" + territory.rotate : "")}
-                    style={
-                        {
-                            marginLeft: territory.position.x + "%",
-                            marginTop: territory.position.y + "%"
-                        }
+    // territory display //
+
+    displayFriendlyTerritory(territory) {
+        return (
+            <div className="dropdown show map-territory"
+                style={
+                    {
+                        marginLeft: territory.position.x + "%",
+                        marginTop: territory.position.y + "%"
                     }
+                }
+            >
+                <label key={territory.name}
+                    className={"text-success map-territory-name " + (territory.rotate !== undefined ? "rotate" + territory.rotate : "")}
+                    data-toggle="dropdown"
                 >
                     {territory.name}
                 </label >
-            );
+
+                <div className="dropdown-menu" >
+                    <div className="text-center">
+                        <label>Units:</label>
+                        <div className="row">
+                            <button className="btn btn-light dropdown-item col-6">
+                                <i className="fas fa-male mr-1"></i>Army
+                                </button>
+                            <button className="btn btn-light dropdown-item col-6" disabled>
+                                <i className="fas fa-anchor mr-1"></i>Fleet
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    displayEnemyTerritory(territory) {
+        return (
+            <div className="dropdown show map-territory"
+                style={
+                    {
+                        marginLeft: territory.position.x + "%",
+                        marginTop: territory.position.y + "%"
+                    }
+                }
+            >
+                <label key={territory.name}
+                    className={"text-danger map-territory-name " + (territory.rotate !== undefined ? "rotate" + territory.rotate : "")}
+                    data-toggle="dropdown"
+                >
+                    {territory.name}
+                </label >
+
+                <div className="dropdown-menu" >
+                    <div className="text-center">
+                        <label>Actions:</label>
+                        <div>
+                            <button className="btn btn-light dropdown-item">
+                                <i className="fas fa-male mr-1"></i>Attack
+                            </button>
+                            <button className="btn btn-light dropdown-item">
+                                <i className="fas fa-anchor mr-1"></i>Support
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    displayTerritories() {
+        return this.territories.map((territory) => {
+            if (this.isFriendlyTerritory(territory.name))
+                return this.displayFriendlyTerritory(territory);
+            else
+                return this.displayEnemyTerritory(territory);
         });
     }
 
