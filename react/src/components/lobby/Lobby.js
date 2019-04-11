@@ -16,9 +16,20 @@ class Lobby extends Component {
             round_duration: undefined,
             status: undefined
         };
+        this.getRoomInfoInterval = null;
     }
 
     componentDidMount() {
+        this.getRoomInfo();
+        this.getRoomInfoInterval = setInterval(() => this.getRoomInfo(), 1000);
+    }
+
+    componentWillUnmount() {
+        if (this.getRoomInfoInterval)
+            clearInterval(this.getRoomInfoInterval);
+    }
+
+    getRoomInfo() {
         GetRoomInfo(this.props.match.params.lobbyid).then(response => {
             this.setState({
                 lobby_name: response.name,
@@ -27,7 +38,7 @@ class Lobby extends Component {
                 round_duration: response.timer,
                 status: 'Waiting for players'
             });
-        });
+        })
     }
 
     render() {
