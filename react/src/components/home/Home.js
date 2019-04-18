@@ -2,25 +2,19 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Header from '../header/Header';
 import { createNotification } from '../../misc/CreateNotification';
-import { setToken, clearToken } from '../../authentication/Token';
-import { Authenticate } from '../../sockets/Authenticate';
-import { Connect } from '../../sockets/Connect';
 import '../css/home.css';
-
-// connect to the server
-global.socket = Connect('http://statecraft.tk');
-// global.socket = Connect(':4000');
 
 class Home extends Component {
     componentDidMount() {
         // set as default the last username used
-        var username = localStorage.getItem("username");
-        document.getElementById("input-username").value = username;
+        document.getElementById("input-username").value = localStorage.getItem("username");
     }
 
     onAuthenticate(e, url) {
         // Get the value of the username input
         var username = document.getElementById("input-username").value;
+
+        // prevent the default action of the  button
         e.preventDefault();
 
         // If no username was found
@@ -30,18 +24,14 @@ class Home extends Component {
             return;
         }
         // Authenticate with the server
-        Authenticate(username).then(response => {
-            // save the token
-            setToken(response.tokenId);
-            // save the username
-            localStorage.setItem("username", response.username);
+        global.socket.emit("add user", { username: username }).then((response) => {
             // change to a new page
             window.location = url;
         });
     }
+
     render() {
-        // Clear the current
-        clearToken();
+        global.socket.clearUser();
 
         return (
             <div className="home-container">

@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Sockets from './sockets/Sockets';
 
+global.socket = new Sockets();
+// connect
+global.socket.connect("http://statecraft.tk/");
 // Default react code, do not modify
 ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Header from '../header/Header';
 import Chat from '../chat/Chat';
-import { GetRoomInfo } from '../../sockets/Rooms';
 import '../css/bg.css';
 import '../css/lobby.css';
 
@@ -20,17 +19,24 @@ class Lobby extends Component {
     }
 
     componentDidMount() {
+        // reconnect to the server
+        global.socket.reconnect();
         this.getRoomInfo();
         this.getRoomInfoInterval = setInterval(() => this.getRoomInfo(), 1000);
     }
 
+    leaveRoom() {
+        global.socket.emit("leave room");
+    }
+
     componentWillUnmount() {
+        this.leaveRoom();
         if (this.getRoomInfoInterval)
             clearInterval(this.getRoomInfoInterval);
     }
 
     getRoomInfo() {
-        GetRoomInfo(this.props.match.params.lobbyid).then(response => {
+        global.socket.emit("get room", { token: this.props.match.params.lobbyid }).then((response) => {
             this.setState({
                 lobby_name: response.name,
                 max_players: response.nbUsersMax,
@@ -38,7 +44,7 @@ class Lobby extends Component {
                 round_duration: response.timer,
                 status: 'Waiting for players'
             });
-        })
+        });
     }
 
     render() {
@@ -54,7 +60,7 @@ class Lobby extends Component {
             );
         return (
             <div>
-                <Header backDestination="/lobbies" />
+                <Header noBackButton={true} />
                 <div className="container bg-card pt-3 pb-1">
                     <div className="row lobby-content">
                         <div className="col-lg-4 col-md-6 col-sm-6">
@@ -86,7 +92,7 @@ class Lobby extends Component {
                     </div>
                     <div className="col-lg-5 col-sm-12 mx-auto text-center">
                         <Link className="btn btn-success col-lg-5 col-sm-6" to={"/game/" + this.props.match.params.lobbyid}>Play</Link>
-                        <Link className="btn btn-danger col-lg-5 offset-lg-1 col-sm-6 lobby-leave-btn" to="/lobbies">Leave</Link>
+                        <Link className="btn btn-danger col-lg-5 offset-lg-1 col-sm-6 lobby-leave-btn" to="/lobbies" onClick={() => this.leaveRoom()}>Leave</Link>
                     </div>
                 </div>
             </div>

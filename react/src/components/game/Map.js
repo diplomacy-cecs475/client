@@ -143,7 +143,8 @@ class Map extends Component {
         ];
 
         this.state = {
-            my_territories: []
+            my_territories: [],
+            units: []
         }
     }
 
@@ -152,6 +153,11 @@ class Map extends Component {
             my_territories: [
                 { name: "Bre" },
                 { name: "Paris" },
+                { name: "Gas" },
+            ],
+            units: [
+                { territory: "Bre", type: "fleet" },
+                { territory: "Paris", type: "army" }
             ]
         });
     }
@@ -165,8 +171,9 @@ class Map extends Component {
     }
 
     displaySupplyCenters() {
-        return this.supplyCenters.map((supplyCenter) => {
+        return this.supplyCenters.map((supplyCenter, index) => {
             return (<i
+                key={"supply-center-" + index}
                 className="fas fa-warehouse map-supply-center"
                 style={
                     {
@@ -181,6 +188,8 @@ class Map extends Component {
     // territory display //
 
     displayFriendlyTerritory(territory) {
+        var units = this.state.units.filter((u) => { return (u.territory === territory.name) });
+
         return (
             <div className="dropdown show map-territory"
                 style={
@@ -189,22 +198,24 @@ class Map extends Component {
                         marginTop: territory.position.y + "%"
                     }
                 }
+                key={"territory-" + territory.name}
             >
-                <label key={territory.name}
+                <label
                     className={"text-success map-territory-name " + (territory.rotate !== undefined ? "rotate" + territory.rotate : "")}
                     data-toggle="dropdown"
                 >
                     {territory.name}
+                    <br />
                 </label >
 
                 <div className="dropdown-menu" >
                     <div className="text-center">
                         <label>Units:</label>
                         <div className="row">
-                            <button className="btn btn-light dropdown-item col-6">
+                            <button className="btn btn-light dropdown-item col-6" disabled={!units.find((u) => { return (u.type === "army") })}>
                                 <i className="fas fa-male mr-1"></i>Army
                                 </button>
-                            <button className="btn btn-light dropdown-item col-6" disabled>
+                            <button className="btn btn-light dropdown-item col-6" disabled={!units.find((u) => { return (u.type === "fleet") })}>
                                 <i className="fas fa-anchor mr-1"></i>Fleet
                             </button>
                         </div>
@@ -223,8 +234,9 @@ class Map extends Component {
                         marginTop: territory.position.y + "%"
                     }
                 }
+                key={"territory-" + territory.name}
             >
-                <label key={territory.name}
+                <label
                     className={"text-danger map-territory-name " + (territory.rotate !== undefined ? "rotate" + territory.rotate : "")}
                     data-toggle="dropdown"
                 >

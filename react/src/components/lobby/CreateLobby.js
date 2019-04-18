@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import Header from '../header/Header';
 import { createNotification } from '../../misc/CreateNotification';
-import { CreateRoom } from '../../sockets/Rooms';
 import "../css/bg.css";
 import "../css/create_lobby.css";
 
 class CreateLobby extends Component {
+  constructor() {
+    super();
+    this.create = this.create.bind(this);
+  }
+
+  componentDidMount() {
+    // reconnect to the server
+    global.socket.reconnect();
+  }
+
   create() {
     var name = document.getElementById('room_name').value;
     var password = document.getElementById('room_password').value;
@@ -15,7 +24,14 @@ class CreateLobby extends Component {
     if (name === "" || player_limit === "")
       createNotification('warning', 'Some fields are empty');
     else {
-      CreateRoom(name, password, player_limit, min).then(response => {
+      global.socket.emit("create room", {
+        name: name,
+        publicVisibility: (password.length === 0 ? true : false),
+        password: password,
+        time: min,
+        nbUsersMax: player_limit
+      }).then((response) => {
+        console.log("create lobby received: " + response);
         window.location = "/lobby/" + response.tokenId;
       });
     }
@@ -55,7 +71,7 @@ class CreateLobby extends Component {
             </div>
           </div>
           <div className="d-flex justify-content-center mb-3">
-            <button className="btn btn-dark mx-auto" onClick={this.create.bind(this)}>Create room</button>
+            <button className="btn btn-dark mx-auto" onClick={() => this.create()}>Create room</button>
           </div>
         </div>
       </div>

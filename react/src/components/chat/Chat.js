@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { sendMessage, sendGlobalMessage } from '../../sockets/Messages';
 import '../css/chat.css';
 
 class Chat extends Component {
@@ -12,12 +11,12 @@ class Chat extends Component {
 
     componentDidMount() {
         if (this.props.lobbyChat) {
-            global.socket.on("msgGlobal", (data) => {
+            global.socket.socket.on("msgGlobal", (data) => {
                 this.addNewMessage(data.msg, data.userFrom);
             });
         }
         else {
-            global.socket.on("msgPriv", (data) => {
+            global.socket.socket.on("msgPriv", (data) => {
                 this.addNewMessage(data.msg, data.userFrom);
             });
         }
@@ -58,10 +57,10 @@ class Chat extends Component {
         // Send the message to the server using sockets
         // if it's a global chat
         if (this.props.lobbyChat) {
-            sendGlobalMessage(message);
+            global.socket.socket.emit("msg global", { msg: message });
         }
         else {
-            sendMessage(message, this.props.contact);
+            global.socket.socket.emit("msg to", { username: this.props.contact, msg: message });
         }
         // add the message to the chat
         this.addNewMessage(message, localStorage.getItem('username'));

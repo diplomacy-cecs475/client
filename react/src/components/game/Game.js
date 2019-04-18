@@ -18,20 +18,14 @@ class Game extends Component {
     }
 
     componentDidMount() {
-        // Debug initialization until the server is working
-        this.setState({
-            players: [
-                { id: 1, username: "Antoine", country: "France", fleet: 1, army: 2, supply: 3 },
-                { id: 2, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
-                { id: 3, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
-                { id: 4, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
-                { id: 5, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
-                { id: 6, username: "BoB", country: "Germany", fleet: 1, army: 2, supply: 3 },
-                { id: 7, username: "Kevin", country: "England", fleet: 1, army: 2, supply: 3 }
-            ],
-            time_remaining: "5:00",
-            game_name: "test",
-            round_info: "Round 1 - Spring 1901"
+        global.socket.emit("get room", { token: this.props.match.params.gameid }).then((response) => {
+            this.setState({
+                game_name: response.name,
+                players: response.users,
+                round_duration: response.timer,
+                round_info: "Round 1 - Spring 1901",
+                time_remaining: "5:00",
+            });
         });
     }
 
