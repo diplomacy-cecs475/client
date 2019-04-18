@@ -17,6 +17,7 @@ class Chat extends Component {
         }
         else {
             global.socket.socket.on("msgPriv", (data) => {
+                console.log("message received", data);
                 this.addNewMessage(data.msg, data.userFrom);
             });
         }

@@ -20,6 +20,7 @@ class Sockets {
             { endpoint: "join room:response", callback: this.defaultCallback.bind(this) },
             { endpoint: "reconnect user:response", callback: this.defaultCallback.bind(this) },
             { endpoint: "leave room:response", callback: this.defaultCallback.bind(this) },
+            { endpoint: "update room:event", callback: this.defaultCallback.bind(this) },
         ];
         // SocketIO's socket
         this.socket = null;
@@ -108,7 +109,6 @@ class Sockets {
     authenticationCallback(data) {
         // save username and user's token
         if (data.success) {
-            console.log("saving new user");
             localStorage.setItem("username", data.response.username);
             localStorage.setItem("x-access-token", data.response.tokenId);
         }
@@ -117,6 +117,7 @@ class Sockets {
     }
 
     defaultCallback(data) {
+        console.log(data);
         this.messages_received.push(new SocketResponse(data, data.code));
     }
 
