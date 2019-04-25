@@ -13,7 +13,8 @@ class Game extends Component {
             time_remaining: undefined,
             game_name: undefined,
             round_info: undefined,
-            chatting_with: undefined
+            chatting_with: undefined,
+            territories: undefined
         };
     }
 
@@ -25,13 +26,8 @@ class Game extends Component {
                 round_duration: response.timer,
                 round_info: "Round 1 - Spring 1901",
                 time_remaining: "5:00",
+                territories: response.map.map
             });
-        });
-        this.setState({
-            territories:
-                [
-                    { name: "Par", owner: "azlod", units: { fleet: true, army: false } }
-                ]
         });
     }
 
@@ -158,6 +154,8 @@ class Game extends Component {
                         </thead>
                         <tbody>
                             {territories.map((territory) => {
+                                if (!territory.units.army && !territory.units.fleet)
+                                    return ("");
                                 return (
                                     <tr key={"territory-" + territory.name}>
                                         <td>{territory.owner}</td>

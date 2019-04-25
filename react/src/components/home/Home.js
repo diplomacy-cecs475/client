@@ -7,7 +7,6 @@ import '../css/home.css';
 class Home extends Component {
     componentDidMount() {
         // set as default the last username used
-        console.log(localStorage.getItem("username"));
         document.getElementById("input-username").value = localStorage.getItem("username");
     }
 

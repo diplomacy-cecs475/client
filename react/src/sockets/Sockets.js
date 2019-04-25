@@ -109,7 +109,6 @@ class Sockets {
     authenticationCallback(data) {
         // save username and user's token
         if (data.success) {
-            console.log("set username to ", data.response.username);
             localStorage.setItem("username", data.response.username);
             localStorage.setItem("x-access-token", data.response.tokenId);
         }

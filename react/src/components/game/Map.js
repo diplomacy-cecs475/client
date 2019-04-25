@@ -164,7 +164,7 @@ class Map extends Component {
         if (!territories)
             return (false);
 
-        return (territories.find((territory) => { return (territory.name === territoryName && territory.owner === my_username) }));
+        return (territories.find((territory) => { return (territory.name === territoryName && territory.user === my_username) }));
     }
 
     // Return informations about a territory (units, owner, ..)
