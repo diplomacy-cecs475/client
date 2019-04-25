@@ -248,7 +248,6 @@ class Map extends Component {
     }
 
     hoverCallback(territory) {
-        console.log("mouse is over " + territory.name);
         // var newImage = document.createElement("img");
         // newImage.src = "..";
         // document.getElementById("map").appendChild(newImage);

@@ -101,6 +101,7 @@ class Game extends Component {
                     <table className="table">
                         <thead className="thead-dark">
                             <tr>
+                                <th scope="col">Ready</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Country</th>
                                 <th scope="col">Action</th>
@@ -110,6 +111,7 @@ class Game extends Component {
                             {players.map(player => {
                                 return (
                                     <tr className="game-player-list-element" key={"player-" + player.username}>
+                                        <td><span className={"circle " + (player.ready ? "text-success" : "text-danger")}></span></td>
                                         <td>{player.username}</td>
                                         <td>{player.country}</td>
                                         <td>

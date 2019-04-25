@@ -117,7 +117,6 @@ class Sockets {
     }
 
     defaultCallback(data) {
-        console.log(data);
         this.messages_received.push(new SocketResponse(data, data.code));
     }
 
@@ -131,8 +130,6 @@ class Sockets {
 
     // reconnect to the server
     reconnect() {
-        console.log("Reconnecting as: ", localStorage.getItem("username"));
-
         this.emit("reconnect user", { tokenId: localStorage.getItem("x-access-token") }).then((response) => {
         });
     }
