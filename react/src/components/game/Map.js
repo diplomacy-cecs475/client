@@ -144,7 +144,8 @@ class Map extends Component {
 
         this.state = {
             my_territories: [],
-            units: []
+            units: [],
+            selected_unit: undefined
         }
     }
 
@@ -156,10 +157,20 @@ class Map extends Component {
                 { name: "Gas" },
             ],
             units: [
-                { territory: "Bre", type: "fleet" },
-                { territory: "Paris", type: "army" }
+                { id: 1, territory: "Bre", type: "fleet" },
+                { id: 2, territory: "Paris", type: "army" }
             ]
         });
+    }
+
+    // units
+
+    selectNewUnit(unitId) {
+        var unit = this.state.units.find((u) => { return (u.id === unitId) });
+
+        if (!unit)
+            return;
+        this.setState({ selected_unit: unit });
     }
 
     // check if a territory is friendly
@@ -172,16 +183,16 @@ class Map extends Component {
 
     displaySupplyCenters() {
         return this.supplyCenters.map((supplyCenter, index) => {
-            return (<i
+            return (<span
                 key={"supply-center-" + index}
-                className="fas fa-warehouse map-supply-center"
+                className="map-supply-center circle"
                 style={
                     {
                         marginLeft: supplyCenter.position.x + "%",
-                        marginTop: supplyCenter.position.y + "%"
+                        marginTop: supplyCenter.position.y - 1 + "%",
                     }
                 }
-            ></i>)
+            ></span>)
         });
     }
 
@@ -189,6 +200,8 @@ class Map extends Component {
 
     displayFriendlyTerritory(territory) {
         var units = this.state.units.filter((u) => { return (u.territory === territory.name) });
+        var fleet = units.find((u) => { return (u.type === "fleet") });
+        var army = units.find((u) => { return (u.type === "army") });
 
         return (
             <div className="dropdown show map-territory"
@@ -203,6 +216,7 @@ class Map extends Component {
                 <label
                     className={"text-success map-territory-name " + (territory.rotate !== undefined ? "rotate" + territory.rotate : "")}
                     data-toggle="dropdown"
+                    id={"territory-text-" + territory.name}
                 >
                     {territory.name}
                     <br />
@@ -212,10 +226,18 @@ class Map extends Component {
                     <div className="text-center">
                         <label>Units:</label>
                         <div className="row">
-                            <button className="btn btn-light dropdown-item col-6" disabled={!units.find((u) => { return (u.type === "army") })}>
+                            <button
+                                className="btn btn-light dropdown-item col-6"
+                                disabled={!army}
+                                onClick={() => { if (army) this.selectNewUnit(army.id); }}
+                            >
                                 <i className="fas fa-male mr-1"></i>Army
                                 </button>
-                            <button className="btn btn-light dropdown-item col-6" disabled={!units.find((u) => { return (u.type === "fleet") })}>
+                            <button
+                                className="btn btn-light dropdown-item col-6"
+                                disabled={!fleet}
+                                onClick={() => { if (fleet) this.selectNewUnit(fleet.id); }}
+                            >
                                 <i className="fas fa-anchor mr-1"></i>Fleet
                             </button>
                         </div>
@@ -223,6 +245,21 @@ class Map extends Component {
                 </div>
             </div>
         )
+    }
+
+    hoverCallback(territory) {
+        console.log("mouse is over " + territory.name);
+        // var newImage = document.createElement("img");
+        // newImage.src = "..";
+        // document.getElementById("map").appendChild(newImage);
+    }
+
+    addListeners() {
+        this.territories.forEach((territory) => {
+            var element = document.getElementById("territory-text-" + territory.name);
+            if (element)
+                element.addEventListener("mouseover", () => { this.hoverCallback(territory) });
+        });
     }
 
     displayEnemyTerritory(territory) {
@@ -239,6 +276,7 @@ class Map extends Component {
                 <label
                     className={"text-danger map-territory-name " + (territory.rotate !== undefined ? "rotate" + territory.rotate : "")}
                     data-toggle="dropdown"
+                    id={"territory-text-" + territory.name}
                 >
                     {territory.name}
                 </label >
@@ -269,11 +307,32 @@ class Map extends Component {
         });
     }
 
+    displaySelectedUnit() {
+        const { selected_unit } = this.state;
+
+        if (!selected_unit) {
+            return;
+        }
+        return (
+            <div className="selected-unit-container row">
+                <button className="btn btn-danger selected-unit-remove-btn"
+                    onClick={() => { this.setState({ selected_unit: null }) }}>
+                    <i className="fas fa-times-circle"></i>
+                </button>
+                <h4 hidden={!selected_unit} className="selected-unit-text">
+                    Selected unit: <u>{selected_unit.type}</u> from <u>{selected_unit.territory}</u>
+                </h4>
+            </div>
+        );
+    }
+
     render() {
         return (
-            <div className="col-12 map">
+            <div className="col-12 map" id="map">
+                {this.displaySelectedUnit()}
                 {this.displaySupplyCenters()}
                 {this.displayTerritories()}
+                {this.addListeners()}
                 {/* Display an empty element to set the correct size to the map */}
                 <label style={
                     {

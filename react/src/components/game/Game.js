@@ -89,6 +89,7 @@ class Game extends Component {
     // Display the player list
     displayPlayers() {
         const { players } = this.state;
+        const connectedUsername = localStorage.getItem("username");
 
         if (!players)
             return;
@@ -108,11 +109,14 @@ class Game extends Component {
                         <tbody>
                             {players.map(player => {
                                 return (
-                                    <tr className="game-player-list-element" key={"player-" + player.id}>
+                                    <tr className="game-player-list-element" key={"player-" + player.username}>
                                         <td>{player.username}</td>
                                         <td>{player.country}</td>
                                         <td>
-                                            <button onClick={() => this.onClickChat(player.username)} className="btn game-chat-btn">
+                                            <button
+                                                onClick={() => this.onClickChat(player.username)}
+                                                className="btn game-chat-btn"
+                                                disabled={player.username === connectedUsername}>
                                                 <i className="fas fa-comments fa-2x"></i>
                                             </button>
                                         </td>

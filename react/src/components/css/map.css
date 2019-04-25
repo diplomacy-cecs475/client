@@ -29,6 +29,32 @@
     -webkit-text-stroke-color: black;
 }
 
+.circle:before {
+    content: ' \25CF';
+    font-size: 30px;
+}
+
+/* units */
+
+.selected-unit-container {
+    position: absolute;
+    margin-top: 10px;
+    background: rgba(200, 200, 200, 0.8);
+    padding: 1em;
+}
+
+.selected-unit-text {
+    vertical-align: middle;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.selected-unit-remove-btn {
+    vertical-align: middle;
+    position: absolute;
+    left: 0;
+}
+
 /* Rotate text functions */
 
 .rotate-90 {
