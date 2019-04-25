@@ -135,28 +135,57 @@ class Game extends Component {
     displayInventory() {
         return (
             <div className="game-right-element game-inventory col-lg-12 col-md-12 col-sm-12">
-                <h3 className="text-center game-right-title">Inventory</h3>
-                <div className="container inventory">
-                    <ul>
-                        <li className="d-flex justify-content-between align-items-center mt-4">
-                            <span className="fleet-icon mx-auto"><i className="fas fa-anchor fa-3x"></i>
-                                <span className="icon-title ml-4">Fleet x</span>
-                            </span>
-                        </li>
-                        <li className="d-flex justify-content-between align-items-center mt-4">
-                            <span className="army-icon mx-auto"><i className="fas fa-male fa-3x"></i>
-                                <span className="icon-title ml-4">Army x</span>
-                            </span>
-                        </li>
-                        <li className="d-flex justify-content-between align-items-center mt-4">
-                            <span className="center-icon mx-auto"><i className="fas fa-warehouse fa-3x"></i>
-                                <span className="icon-title ml-4">Supply center x</span>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
+                <h3 className="text-center game-right-title">Units</h3>
+                  <div className="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table className="table table-bordered table-dark table-striped mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">Territory</th>
+                          <th scope="col">flag</th>
+                          <th scope="col">Unit</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>France</td>
+                          <td>Otto</td>
+                          <td>fleet</td>
+                        </tr>
+                        <tr>
+                          <td>Spain</td>
+                          <td>Thornton</td>
+                          <td>army</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
             </div>
         );
+        // return (
+        //     <div className="game-right-element game-inventory col-lg-12 col-md-12 col-sm-12">
+        //         <h3 className="text-center game-right-title">Inventory</h3>
+        //         <div className="container inventory">
+        //             <ul>
+        //                 <li className="d-flex justify-content-between align-items-center mt-4">
+        //                     <span className="fleet-icon mx-auto"><i className="fas fa-anchor fa-3x"></i>
+        //                         <span className="icon-title ml-4">Fleet x</span>
+        //                     </span>
+        //                 </li>
+        //                 <li className="d-flex justify-content-between align-items-center mt-4">
+        //                     <span className="army-icon mx-auto"><i className="fas fa-male fa-3x"></i>
+        //                         <span className="icon-title ml-4">Army x</span>
+        //                     </span>
+        //                 </li>
+        //                 <li className="d-flex justify-content-between align-items-center mt-4">
+        //                     <span className="center-icon mx-auto"><i className="fas fa-warehouse fa-3x"></i>
+        //                         <span className="icon-title ml-4">Supply center x</span>
+        //                     </span>
+        //                 </li>
+        //             </ul>
+        //         </div>
+        //     </div>
+        // );
     }
 
     render() {
