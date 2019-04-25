@@ -15,36 +15,53 @@ class Lobby extends Component {
             round_duration: undefined,
             status: undefined
         };
-        this.getRoomInfoInterval = null;
     }
 
     componentDidMount() {
         // reconnect to the server
         global.socket.reconnect();
         this.getRoomInfo();
-        this.getRoomInfoInterval = setInterval(() => this.getRoomInfo(), 1000);
+        global.socket.setListener("update room:event", (data) => {
+            this.updateRoomInfo(data[0]);
+        });
+        global.socket.setListener("start game:event", (data) => {
+            window.location = "/game/" + data.tokenId;
+        });
     }
 
     leaveRoom() {
         global.socket.emit("leave room");
     }
 
-    componentWillUnmount() {
-        this.leaveRoom();
-        if (this.getRoomInfoInterval)
-            clearInterval(this.getRoomInfoInterval);
+    isAdmin() {
+        const my_username = localStorage.getItem("username");
+
+        if (this.state.players.find((p) => { return (p.username === my_username && p.admin === true) }) === undefined)
+            return (false);
+        return (true);
+    }
+
+    updateRoomInfo(data) {
+        this.setState({
+            lobby_name: data.name,
+            max_players: data.nbUsersMax,
+            players: data.users,
+            round_duration: data.timer,
+            status: 'Waiting for players'
+        });
     }
 
     getRoomInfo() {
         global.socket.emit("get room", { token: this.props.match.params.lobbyid }).then((response) => {
-            this.setState({
-                lobby_name: response.name,
-                max_players: response.nbUsersMax,
-                players: response.users,
-                round_duration: response.timer,
-                status: 'Waiting for players'
-            });
+            this.updateRoomInfo(response);
         });
+    }
+
+    startGame() {
+        global.socket.emit("start game").then((response) => {
+            console.log(response);
+        });
+        document.getElementById("start-game-btn").disabled = true;
     }
 
     render() {
@@ -91,7 +108,7 @@ class Lobby extends Component {
                         <Chat contact={lobby_name} lobbyChat={true} />
                     </div>
                     <div className="col-lg-5 col-sm-12 mx-auto text-center">
-                        <Link className="btn btn-success col-lg-5 col-sm-6" to={"/game/" + this.props.match.params.lobbyid}>Play</Link>
+                        <button id="start-game-btn" disabled={!this.isAdmin()} className="btn btn-success col-lg-5 col-sm-6" onClick={() => this.startGame()}>Play</button>
                         <Link className="btn btn-danger col-lg-5 offset-lg-1 col-sm-6 lobby-leave-btn" to="/lobbies" onClick={() => this.leaveRoom()}>Leave</Link>
                     </div>
                 </div>

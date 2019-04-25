@@ -20,7 +20,7 @@ class Sockets {
             { endpoint: "join room:response", callback: this.defaultCallback.bind(this) },
             { endpoint: "reconnect user:response", callback: this.defaultCallback.bind(this) },
             { endpoint: "leave room:response", callback: this.defaultCallback.bind(this) },
-            { endpoint: "update room:event", callback: this.defaultCallback.bind(this) },
+            { endpoint: "start game:response", callback: this.defaultCallback.bind(this) },
         ];
         // SocketIO's socket
         this.socket = null;
@@ -109,6 +109,7 @@ class Sockets {
     authenticationCallback(data) {
         // save username and user's token
         if (data.success) {
+            console.log("set username to ", data.response.username);
             localStorage.setItem("username", data.response.username);
             localStorage.setItem("x-access-token", data.response.tokenId);
         }
@@ -122,9 +123,13 @@ class Sockets {
 
     // Connect and add all listeners
 
+    setListener(endpoint, callback) {
+        this.socket.on(endpoint, callback);
+    }
+
     addAllListeners() {
         this.listeners.forEach((listener) => {
-            this.socket.on(listener.endpoint, listener.callback);
+            this.setListener(listener.endpoint, listener.callback);
         });
     }
 

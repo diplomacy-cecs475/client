@@ -27,6 +27,12 @@ class Game extends Component {
                 time_remaining: "5:00",
             });
         });
+        this.setState({
+            territories:
+                [
+                    { name: "Par", owner: "azlod", units: { fleet: true, army: false } }
+                ]
+        });
     }
 
     // Display the game header with game informations
@@ -89,7 +95,7 @@ class Game extends Component {
     // Display the player list
     displayPlayers() {
         const { players } = this.state;
-        const connectedUsername = localStorage.getItem("username");
+        const my_username = localStorage.getItem("username");
 
         if (!players)
             return;
@@ -118,7 +124,7 @@ class Game extends Component {
                                             <button
                                                 onClick={() => this.onClickChat(player.username)}
                                                 className="btn game-chat-btn"
-                                                disabled={player.username === connectedUsername}>
+                                                disabled={player.username === my_username}>
                                                 <i className="fas fa-comments fa-2x"></i>
                                             </button>
                                         </td>
@@ -132,65 +138,49 @@ class Game extends Component {
         );
     }
 
-    displayInventory() {
+    displayUnits() {
+        const { territories } = this.state;
+
+        if (!territories)
+            return (<p>Loading..</p>);
+        // For each territory
         return (
             <div className="game-right-element game-inventory col-lg-12 col-md-12 col-sm-12">
                 <h3 className="text-center game-right-title">Units</h3>
-                  <div className="table-wrapper-scroll-y my-custom-scrollbar">
+                <div className="table-wrapper-scroll-y my-custom-scrollbar">
                     <table className="table table-bordered table-dark table-striped mb-0">
-                      <thead>
-                        <tr>
-                          <th scope="col">Territory</th>
-                          <th scope="col">flag</th>
-                          <th scope="col">Unit</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>France</td>
-                          <td>Otto</td>
-                          <td>fleet</td>
-                        </tr>
-                        <tr>
-                          <td>Spain</td>
-                          <td>Thornton</td>
-                          <td>army</td>
-                        </tr>
-                      </tbody>
+                        <thead>
+                            <tr>
+                                <th scope="col">Owner</th>
+                                <th scope="col">Territory</th>
+                                <th scope="col">Unit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {territories.map((territory) => {
+                                return (
+                                    <tr key={"territory-" + territory.name}>
+                                        <td>{territory.owner}</td>
+                                        <td>{territory.name}</td>
+                                        <td>
+                                            <i className="fas fa-male mr-1" hidden={!territory.units.army}></i>
+                                            <i className="fas fa-anchor" hidden={!territory.units.fleet}></i>
+                                        </td>
+                                    </tr>);
+                            })}
+                        </tbody>
                     </table>
 
-                  </div>
+                </div>
             </div>
         );
-        // return (
-        //     <div className="game-right-element game-inventory col-lg-12 col-md-12 col-sm-12">
-        //         <h3 className="text-center game-right-title">Inventory</h3>
-        //         <div className="container inventory">
-        //             <ul>
-        //                 <li className="d-flex justify-content-between align-items-center mt-4">
-        //                     <span className="fleet-icon mx-auto"><i className="fas fa-anchor fa-3x"></i>
-        //                         <span className="icon-title ml-4">Fleet x</span>
-        //                     </span>
-        //                 </li>
-        //                 <li className="d-flex justify-content-between align-items-center mt-4">
-        //                     <span className="army-icon mx-auto"><i className="fas fa-male fa-3x"></i>
-        //                         <span className="icon-title ml-4">Army x</span>
-        //                     </span>
-        //                 </li>
-        //                 <li className="d-flex justify-content-between align-items-center mt-4">
-        //                     <span className="center-icon mx-auto"><i className="fas fa-warehouse fa-3x"></i>
-        //                         <span className="icon-title ml-4">Supply center x</span>
-        //                     </span>
-        //                 </li>
-        //             </ul>
-        //         </div>
-        //     </div>
-        // );
     }
 
     render() {
-        const { chatting_with } = this.state;
+        const { chatting_with, territories } = this.state;
 
+        if (!territories)
+            return (<p>Loading..</p>);
         return (
             <div>
                 <Header noBackButton={true} />
@@ -198,12 +188,12 @@ class Game extends Component {
                     {this.displayGameHeader()}
                     <div className="row game-content">
                         <div className="col-lg-7 col-md-12 col-sm-12">
-                            <Map />
+                            <Map territories={territories} />
                         </div>
                         <div className="col-lg-5 col-md-12 col-sm-12 row">
                             {/* Display chat or player list */}
                             {(chatting_with ? this.displayChat() : this.displayPlayers())}
-                            {this.displayInventory()}
+                            {this.displayUnits()}
                         </div>
                     </div>
                 </div>

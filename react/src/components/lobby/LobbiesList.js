@@ -19,17 +19,18 @@ class LobbiesList extends Component {
     global.socket.reconnect();
 
     this.listLobbies();
-    this.listLobbiesInterval = setInterval(this.listLobbies, 1000);
+    global.socket.setListener("update room:event", (data) => {
+      this.updateRoomList(data);
+    });
   }
 
-  componentWillUnmount() {
-    if (this.listLobbiesInterval)
-      clearInterval(this.listLobbiesInterval);
+  updateRoomList(data) {
+    this.setState({ lobbies: data });
   }
 
   listLobbies() {
     global.socket.emit("list room").then((response) => {
-      this.setState({ lobbies: response });
+      this.updateRoomList(response);
     });
   }
 
