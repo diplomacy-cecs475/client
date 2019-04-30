@@ -11,11 +11,13 @@ class Chat extends Component {
 
     componentDidMount() {
         if (this.props.lobbyChat) {
+            console.log("set on global");
             global.socket.socket.on("msgGlobal", (data) => {
                 this.addNewMessage(data.msg, data.userFrom);
             });
         }
         else {
+            console.log("set on private");
             global.socket.socket.on("msgPriv", (data) => {
                 console.log("message received", data);
                 this.addNewMessage(data.msg, data.userFrom);
@@ -64,6 +66,7 @@ class Chat extends Component {
             global.socket.socket.emit("msg global", { msg: message });
         }
         else {
+            console.log("send", { username: this.props.contact, msg: message });
             global.socket.socket.emit("msg to", { username: this.props.contact, msg: message });
         }
         // add the message to the chat

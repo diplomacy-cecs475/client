@@ -22,7 +22,7 @@ class Lobby extends Component {
         global.socket.reconnect();
         this.getRoomInfo();
         global.socket.setListener("update room:event", (data) => {
-            this.updateRoomInfo(data[0]);
+            this.updateRoomInfo(data.find((room) => { return (room.name === this.state.lobby_name) }));
         });
         global.socket.setListener("start game:event", (data) => {
             window.location = "/game/" + data.tokenId;
