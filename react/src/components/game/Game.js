@@ -62,11 +62,17 @@ class Game extends Component {
         const { round_info, game_name, time_remaining } = this.state;
         const me_info = this.getUserInfo(localStorage.getItem("username"));
 
+        var timer_seconds = time_remaining % 60;
+        var timer_minutes = Math.floor(time_remaining / 60);
+        if (timer_seconds < 10)
+            timer_seconds = "0" + timer_seconds;
+        if (timer_minutes < 10)
+            timer_minutes = "0" + timer_minutes;
         // display
         return (
             <header className="game-header row">
                 <div className="col-lg-2 col-sm-6">
-                    {time_remaining / 60}:{time_remaining % 60}
+                    {timer_minutes}:{timer_seconds}
                 </div>
                 <div className="col-lg-4 col-sm-6">
                     {round_info}
