@@ -99,47 +99,47 @@ class Map extends Component {
             { position: { x: 27, y: 60 }, home_territory: "Par" },
             { position: { x: 30, y: 71 }, home_territory: "Mar" },
             // Belgium, netherland
-            { position: { x: 30, y: 53.5 }, home_territory: "Belg" },
-            { position: { x: 35, y: 51 }, home_territory: "Neth" },
+            { position: { x: 30, y: 53.5 }, home_territory: "Bel" },
+            { position: { x: 35, y: 51 }, home_territory: "Net" },
             // Great britain
-            { position: { x: 28, y: 50 }, home_territory: "London" },
-            { position: { x: 24, y: 43 }, home_territory: "Liverpool" },
-            { position: { x: 26, y: 35 }, home_territory: "Edinburgh" },
+            { position: { x: 28, y: 50 }, home_territory: "Lon" },
+            { position: { x: 24, y: 43 }, home_territory: "Liv" },
+            { position: { x: 26, y: 35 }, home_territory: "Edi" },
             // Germany
-            { position: { x: 42, y: 49 }, home_territory: "Kiel" },
-            { position: { x: 48, y: 52 }, home_territory: "Berlin" },
-            { position: { x: 43, y: 62 }, home_territory: "Munich" },
+            { position: { x: 42, y: 49 }, home_territory: "Kie" },
+            { position: { x: 48, y: 52 }, home_territory: "Ber" },
+            { position: { x: 43, y: 62 }, home_territory: "Mun" },
             // Denmark
-            { position: { x: 46, y: 44 }, home_territory: "Denmark" },
+            { position: { x: 46, y: 44 }, home_territory: "Den" },
             // Norway, sweden
-            { position: { x: 41, y: 30 }, home_territory: "Norway" },
-            { position: { x: 53, y: 35 }, home_territory: "Sweden" },
+            { position: { x: 41, y: 30 }, home_territory: "Nor" },
+            { position: { x: 53, y: 35 }, home_territory: "Swe" },
             // Spain
-            { position: { x: 15, y: 70 }, home_territory: "Spain" },
-            { position: { x: 3.5, y: 75 }, home_territory: "Portugal" },
+            { position: { x: 15, y: 70 }, home_territory: "Spa" },
+            { position: { x: 3.5, y: 75 }, home_territory: "Por"},
             // Tunis
-            { position: { x: 38, y: 91 }, home_territory: "Tunis" },
+            { position: { x: 38, y: 91 }, home_territory: "Tun" },
             // Russia
-            { position: { x: 57, y: 52 }, home_territory: "Warsaw" },
-            { position: { x: 70, y: 35 }, home_territory: "Russia2" },
-            { position: { x: 67, y: 52 }, home_territory: "Moscow" },
-            { position: { x: 80, y: 65 }, home_territory: "Sevastopol" },
+            { position: { x: 57, y: 52 }, home_territory: "War" },
+            { position: { x: 70, y: 35 }, home_territory: "Rus" },
+            { position: { x: 67, y: 50 }, home_territory: "Mos" },
+            { position: { x: 80, y: 65 }, home_territory: "Sev" },
             // Saudi
-            { position: { x: 81, y: 80 }, home_territory: "Ankara" },
-            { position: { x: 75, y: 83 }, home_territory: "Constantinople" },
-            { position: { x: 73, y: 89 }, home_territory: "Smyrna" },
+            { position: { x: 81, y: 80 }, home_territory: "Ank" },
+            { position: { x: 75, y: 83 }, home_territory: "Con" },
+            { position: { x: 73, y: 89 }, home_territory: "Smy" },
             // Center europe
-            { position: { x: 60, y: 65 }, home_territory: "Budapest" },
-            { position: { x: 51, y: 65 }, home_territory: "Vienna" },
-            { position: { x: 49, y: 70 }, home_territory: "Trieste" },
-            { position: { x: 60, y: 75 }, home_territory: "Serbia" },
-            { position: { x: 65, y: 78 }, home_territory: "Bulgaria" },
-            { position: { x: 70, y: 70 }, home_territory: "Rumania" },
-            { position: { x: 61, y: 85 }, home_territory: "Greece" },
+            { position: { x: 60, y: 65 }, home_territory: "Bud" },
+            { position: { x: 51, y: 65 }, home_territory: "Vie" },
+            { position: { x: 49, y: 70 }, home_territory: "Tri" },
+            { position: { x: 60, y: 75 }, home_territory: "Ser" },
+            { position: { x: 65, y: 78 }, home_territory: "Bul" },
+            { position: { x: 70, y: 70 }, home_territory: "Rum" },
+            { position: { x: 61, y: 85 }, home_territory: "Gre" },
             // Italia
-            { position: { x: 42, y: 70 }, home_territory: "Venice" },
-            { position: { x: 42.5, y: 78 }, home_territory: "Rome" },
-            { position: { x: 48.5, y: 84 }, home_territory: "Naples" },
+            { position: { x: 42, y: 70 }, home_territory: "Ven" },
+            { position: { x: 42.5, y: 78 }, home_territory: "Rom" },
+            { position: { x: 48.5, y: 84 }, home_territory: "Nap" },
         ];
 
         this.state = {
