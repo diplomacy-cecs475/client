@@ -44,6 +44,7 @@ class Game extends Component {
     displayGameHeader() {
         // Get the informations from the state
         const { round_info, game_name, time_remaining } = this.state;
+        const me_info = this.getUserInfo(localStorage.getItem("username"));
 
         // display
         return (
@@ -58,14 +59,14 @@ class Game extends Component {
                     {game_name}
                 </div>
                 <div className="col-lg-1 col-sm-6">
-                    Austria
+                    <Flags className="flag-small" flag={me_info.country} />
                 </div>
                 <div className="col-lg-3 col-sm-12">
                     <button className="btn btn-success col-sm-6">Submit orders</button>
                     <Link onClick={() => this.leaveRoom()} className="btn btn-danger game-leave-btn col-sm-6" to="/lobbies">Leave</Link>
                 </div>
             </header>
-        )
+        );
     }
 
     // Chat

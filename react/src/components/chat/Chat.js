@@ -38,12 +38,15 @@ class Chat extends Component {
         // Get the current time
         var currentdate = new Date();
         var seconds = currentdate.getSeconds();
+        var minutes = currentdate.getMinutes();
 
         // If the number of seconds is between 0 and 9, we add a 0 before
         if (seconds < 10)
             seconds = "0" + seconds;
+        if (minutes < 10)
+            minutes = "0" + minutes;
         var datetime = currentdate.getHours() + ":"
-            + currentdate.getMinutes() + ":"
+            + minutes + ":"
             + seconds;
 
         // Add the message
