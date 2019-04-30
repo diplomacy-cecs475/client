@@ -39,7 +39,6 @@
 .selected-unit-container {
     position: absolute;
     margin-top: 10px;
-    background: rgba(200, 200, 200, 0.8);
     padding: 1em;
 }
 
