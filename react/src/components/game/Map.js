@@ -294,15 +294,14 @@ class Map extends Component {
             return;
         }
         return (
-            <div className="selected-unit-container row">
-                <button className="btn btn-danger selected-unit-remove-btn"
-                    onClick={() => { this.setState({ selected_unit: null }) }}>
-                    <i className="fas fa-times-circle"></i>
-                </button>
-                <h4 hidden={!selected_unit} className="selected-unit-text">
-                    Selected unit: <u>{selected_unit.type}</u> from <u>{selected_unit.territory_name}</u>
-                </h4>
+          <div className="selected-unit-container row">
+            <div className="alert alert-info alert-dismissible fade show" role="alert">
+              <strong>Selected unit: </strong> {selected_unit.type} from {selected_unit.territory_name}
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => { this.setState({ selected_unit: null }) }}>
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
+          </div>
         );
     }
 
