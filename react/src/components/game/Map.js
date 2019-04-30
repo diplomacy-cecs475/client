@@ -5,27 +5,27 @@ class Map extends Component {
     constructor() {
         super();
         this.territories = [
-            { key: "Mid Atlantic", position: { x: 2, y: 57 } },
-            { key: "North Atlantic", position: { x: 2, y: 25 } },
-            { key: "Norwegian Sea", position: { x: 30, y: 10 } },
-            { key: "Barents Sea", position: { x: 70, y: 3 } },
+            { key: "Mid", position: { x: 2, y: 57 } },
+            { key: "NAt", position: { x: 2, y: 25 } },
+            { key: "Nrg", position: { x: 30, y: 10 } },
+            { key: "Bar", position: { x: 70, y: 3 } },
             { key: "Bot", position: { x: 58, y: 34 } },
             { key: "Bal", position: { x: 53, y: 44 } },
             { key: "Ska", position: { x: 44, y: 37 } },
-            { key: "North Sea", position: { x: 31, y: 36 } },
+            { key: "Nth", position: { x: 31, y: 36 } },
             { key: "Hel", position: { x: 38, y: 45 } },
             { key: "Eng", position: { x: 19, y: 53 } },
             { key: "Iri", position: { x: 15, y: 48 } },
             { key: "GoL", position: { x: 27, y: 77 } },
             { key: "Wes", position: { x: 18, y: 85 } },
-            { key: "Tyr", position: { x: 41, y: 83 } },
+            { key: "Tyn", position: { x: 41, y: 83 } },
             { key: "Adr", position: { x: 48, y: 75 } },
             { key: "Ion", position: { x: 48, y: 93 } },
             { key: "Aeg", position: { x: 68, y: 89 } },
             { key: "Eas", position: { x: 77, y: 94 } },
             { key: "Bla", position: { x: 77, y: 72 } },
 
-            { key: "Naf", position: { x: 12, y: 93 } },
+            { key: "NAf", position: { x: 12, y: 93 } },
             { key: "Tun", position: { x: 35, y: 93 } },
             { key: "Por", position: { x: 3, y: 75 } },
             { key: "Spa", position: { x: 12, y: 75 } },
@@ -38,7 +38,7 @@ class Map extends Component {
 
             { key: "Cly", position: { x: 23, y: 34 } },
             { key: "Edi", position: { x: 25.5, y: 36 } },
-            { key: "Lyp", position: { x: 23, y: 39 } },
+            { key: "Lvp", position: { x: 23, y: 39 } },
             { key: "Yor", position: { x: 26.5, y: 44 } },
             { key: "Wal", position: { x: 22, y: 47 } },
             { key: "Lon", position: { x: 26, y: 49 } },
@@ -49,7 +49,7 @@ class Map extends Component {
             { key: "Kie", position: { x: 40, y: 51 } },
             { key: "Den", position: { x: 42, y: 41 } },
             { key: "Ber", position: { x: 46, y: 49 } },
-            { key: "Pru", position: { x: 52, y: 49 } },
+            { key: "Pre", position: { x: 52, y: 49 } },
             { key: "Sil", position: { x: 51, y: 54 } },
             { key: "Mun", position: { x: 40, y: 59 } },
 
@@ -60,7 +60,7 @@ class Map extends Component {
             { key: "Nap", position: { x: 47, y: 82 } },
             { key: "Apu", position: { x: 49, y: 80 } },
 
-            { key: "Trl", position: { x: 44, y: 65 } },
+            { key: "Tyr", position: { x: 44, y: 65 } },
             { key: "Boh", position: { x: 48, y: 58 } },
             { key: "Vie", position: { x: 51, y: 62 } },
             { key: "Gal", position: { x: 60, y: 58 } },
@@ -78,7 +78,7 @@ class Map extends Component {
             { key: "Sev", position: { x: 82, y: 57 } },
             { key: "Mos", position: { x: 81, y: 44 } },
             { key: "Lvn", position: { x: 64, y: 42 } },
-            { key: "Stp", position: { x: 80, y: 25 } },
+            { key: "StP", position: { x: 80, y: 25 } },
 
             { key: "Fin", position: { x: 64, y: 25 } },
             { key: "Swe", position: { x: 51, y: 27 } },
@@ -116,7 +116,7 @@ class Map extends Component {
             { position: { x: 53, y: 35 }, home_territory: "Swe" },
             // Spain
             { position: { x: 15, y: 70 }, home_territory: "Spa" },
-            { position: { x: 3.5, y: 75 }, home_territory: "Por"},
+            { position: { x: 3.5, y: 75 }, home_territory: "Por" },
             // Tunis
             { position: { x: 38, y: 91 }, home_territory: "Tun" },
             // Russia
@@ -147,6 +147,9 @@ class Map extends Component {
         }
     }
     // units
+    componentDidMount() {
+        console.log(this.props.territories);
+    }
 
     selectFleetUnit(territory) {
         this.setState({ selected_unit: { territory_name: territory.key, type: "fleet" } });
@@ -250,7 +253,17 @@ class Map extends Component {
 
     displayTerritory(territory) {
         const friendly = this.isFriendlyTerritory(territory.key);
+        var territory_info = this.getTerritoryInfo(territory.key);
 
+        var territory_color = "text-";
+        if (territory_info && territory_info.user === null)
+            territory_color += "muted";
+        else if (friendly) {
+            territory_color += "success";
+        }
+        else {
+            territory_color += "danger";
+        }
         return (
             <div className="dropdown show map-territory"
                 style={
@@ -262,7 +275,7 @@ class Map extends Component {
                 key={"territory-" + territory.key}
             >
                 <label
-                    className={"text-" + (friendly ? "success" : "danger") + " map-territory-name"}
+                    className={territory_color + " map-territory-name"}
                     data-toggle="dropdown"
                     id={"territory-text-" + territory.key}
                 >
