@@ -38,6 +38,8 @@ class Game extends Component {
     }
 
     updateRoomInfo(data) {
+        if (!data)
+            return;
         this.setState({
             game_name: data.name,
             players: data.users,

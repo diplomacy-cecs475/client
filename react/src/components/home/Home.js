@@ -6,7 +6,6 @@ import '../css/home.css';
 
 class Home extends Component {
     componentDidMount() {
-        global.socket.reconnect();
         // set as default the last username used
         document.getElementById("input-username").value = localStorage.getItem("username");
     }
