@@ -28,11 +28,11 @@ class Game extends Component {
                 players: response.users,
                 round_duration: response.timer,
                 round_info: "Round 1 - Spring 1901",
-                time_remaining: response.timer,
+                time_remaining: response.timer * 60,
                 territories: response.map
             });
         });
-        this.timer_interval = setInterval(this.deacreaseTimer, 1000);
+        this.timer_interval = setInterval(this.deacreaseTimer.bind(this), 1000);
     }
 
     componentWillUnmount() {
@@ -66,7 +66,7 @@ class Game extends Component {
         return (
             <header className="game-header row">
                 <div className="col-lg-2 col-sm-6">
-                    {time_remaining}
+                    {time_remaining / 60}:{time_remaining % 60}
                 </div>
                 <div className="col-lg-4 col-sm-6">
                     {round_info}
