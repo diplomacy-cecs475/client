@@ -14,13 +14,11 @@ class Chat extends Component {
     componentDidMount() {
         global.socket.reconnect();
         if (this.props.lobbyChat) {
-            console.log("set on global");
             global.socket.socket.on("msgGlobal", (data) => {
                 this.addNewMessage(data.msg, data.userFrom);
             });
         }
         else {
-            console.log("set on private");
             global.socket.socket.on("msgPriv", (data) => {
                 console.log("message received", data);
                 this.addNewMessage(data.msg, data.userFrom);

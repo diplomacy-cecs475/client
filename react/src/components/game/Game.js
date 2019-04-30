@@ -20,17 +20,14 @@ class Game extends Component {
 
         this.timer_interval = null;
     }
-    
+
     componentDidMount() {
+        global.socket.reconnect();
         global.socket.emit("get room", { token: this.props.match.params.gameid }).then((response) => {
-            this.setState({
-                game_name: response.name,
-                players: response.users,
-                round_duration: response.timer,
-                round_info: "Round 1 - Spring 1901",
-                time_remaining: response.timer * 60,
-                territories: response.map
-            });
+            this.updateRoomInfo(response);
+        });
+        global.socket.setListener("update room:event", (data) => {
+            this.updateRoomInfo(data.find((room) => { return (room.name === this.state.game_name) }));
         });
         this.timer_interval = setInterval(this.deacreaseTimer.bind(this), 1000);
     }
@@ -40,10 +37,22 @@ class Game extends Component {
             clearInterval(this.timer_interval);
     }
 
+    updateRoomInfo(data) {
+        this.setState({
+            game_name: data.name,
+            players: data.users,
+            round_duration: data.timer,
+            round_info: "Round 1 - Spring 1901",
+            time_remaining: data.timer * 60,
+            territories: data.map
+        });
+
+    }
+
     deacreaseTimer() {
         var { time_remaining } = this.state;
 
-        if (!time_remaining)
+        if (!time_remaining || time_remaining === 0)
             return;
         this.setState({ time_remaining: time_remaining - 1 });
     }
