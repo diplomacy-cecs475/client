@@ -7,9 +7,12 @@ class Chat extends Component {
         this.state = {
             messages: []
         };
+
+        this.onChatSubmit = this.onChatSubmit.bind(this);
     }
 
     componentDidMount() {
+        global.socket.reconnect();
         if (this.props.lobbyChat) {
             console.log("set on global");
             global.socket.socket.on("msgGlobal", (data) => {
@@ -63,11 +66,11 @@ class Chat extends Component {
         // Send the message to the server using sockets
         // if it's a global chat
         if (this.props.lobbyChat) {
-            global.socket.socket.emit("msg global", { msg: message });
+            global.socket.emit("msg global", { msg: message });
         }
         else {
             console.log("send", { username: this.props.contact, msg: message });
-            global.socket.socket.emit("msg to", { username: this.props.contact, msg: message });
+            global.socket.emit("msg to", { username: this.props.contact, msg: message });
         }
         // add the message to the chat
         this.addNewMessage(message, localStorage.getItem('username'));

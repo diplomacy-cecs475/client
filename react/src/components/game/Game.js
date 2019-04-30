@@ -20,7 +20,7 @@ class Game extends Component {
 
         this.timer_interval = null;
     }
-
+    
     componentDidMount() {
         global.socket.emit("get room", { token: this.props.match.params.gameid }).then((response) => {
             this.setState({
