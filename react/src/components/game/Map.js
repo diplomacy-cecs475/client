@@ -5,90 +5,90 @@ class Map extends Component {
     constructor() {
         super();
         this.territories = [
-            { name: "Mid Atlantic", position: { x: 2, y: 57 } },
-            { name: "North Atlantic", position: { x: 2, y: 25 } },
-            { name: "Norwegian Sea", position: { x: 30, y: 10 } },
-            { name: "Barents Sea", position: { x: 70, y: 3 } },
-            { name: "Bot", position: { x: 58, y: 34 } },
-            { name: "Bal", position: { x: 53, y: 44 } },
-            { name: "Ska", position: { x: 44, y: 37 } },
-            { name: "North Sea", position: { x: 31, y: 36 } },
-            { name: "Hel", position: { x: 38, y: 45 } },
-            { name: "Eng", position: { x: 19, y: 53 } },
-            { name: "Iri", position: { x: 15, y: 48 } },
-            { name: "GoL", position: { x: 27, y: 77 } },
-            { name: "Wes", position: { x: 18, y: 85 } },
-            { name: "Tyr", position: { x: 41, y: 83 } },
-            { name: "Adr", position: { x: 48, y: 75 } },
-            { name: "Ion", position: { x: 48, y: 93 } },
-            { name: "Aeg", position: { x: 68, y: 89 } },
-            { name: "Eas", position: { x: 77, y: 94 } },
-            { name: "Bla", position: { x: 77, y: 72 } },
+            { key: "Mid Atlantic", position: { x: 2, y: 57 } },
+            { key: "North Atlantic", position: { x: 2, y: 25 } },
+            { key: "Norwegian Sea", position: { x: 30, y: 10 } },
+            { key: "Barents Sea", position: { x: 70, y: 3 } },
+            { key: "Bot", position: { x: 58, y: 34 } },
+            { key: "Bal", position: { x: 53, y: 44 } },
+            { key: "Ska", position: { x: 44, y: 37 } },
+            { key: "North Sea", position: { x: 31, y: 36 } },
+            { key: "Hel", position: { x: 38, y: 45 } },
+            { key: "Eng", position: { x: 19, y: 53 } },
+            { key: "Iri", position: { x: 15, y: 48 } },
+            { key: "GoL", position: { x: 27, y: 77 } },
+            { key: "Wes", position: { x: 18, y: 85 } },
+            { key: "Tyr", position: { x: 41, y: 83 } },
+            { key: "Adr", position: { x: 48, y: 75 } },
+            { key: "Ion", position: { x: 48, y: 93 } },
+            { key: "Aeg", position: { x: 68, y: 89 } },
+            { key: "Eas", position: { x: 77, y: 94 } },
+            { key: "Bla", position: { x: 77, y: 72 } },
 
-            { name: "Naf", position: { x: 12, y: 93 } },
-            { name: "Tun", position: { x: 35, y: 93 } },
-            { name: "Por", position: { x: 3, y: 75 } },
-            { name: "Spa", position: { x: 12, y: 75 } },
-            { name: "Bre", position: { x: 22, y: 60 } },
-            { name: "Gas", position: { x: 22, y: 67 } },
-            { name: "Par", position: { x: 26, y: 59 } },
-            { name: "Pic", position: { x: 28, y: 55.5 } },
-            { name: "Bur", position: { x: 31, y: 62 } },
-            { name: "Mar", position: { x: 29, y: 70 } },
+            { key: "Naf", position: { x: 12, y: 93 } },
+            { key: "Tun", position: { x: 35, y: 93 } },
+            { key: "Por", position: { x: 3, y: 75 } },
+            { key: "Spa", position: { x: 12, y: 75 } },
+            { key: "Bre", position: { x: 22, y: 60 } },
+            { key: "Gas", position: { x: 22, y: 67 } },
+            { key: "Par", position: { x: 26, y: 59 } },
+            { key: "Pic", position: { x: 28, y: 55.5 } },
+            { key: "Bur", position: { x: 31, y: 62 } },
+            { key: "Mar", position: { x: 29, y: 70 } },
 
-            { name: "Cly", position: { x: 23, y: 34 } },
-            { name: "Edi", position: { x: 25.5, y: 36 } },
-            { name: "Lyp", position: { x: 23, y: 39 } },
-            { name: "Yor", position: { x: 26.5, y: 44 } },
-            { name: "Wal", position: { x: 22, y: 47 } },
-            { name: "Lon", position: { x: 26, y: 49 } },
+            { key: "Cly", position: { x: 23, y: 34 } },
+            { key: "Edi", position: { x: 25.5, y: 36 } },
+            { key: "Lyp", position: { x: 23, y: 39 } },
+            { key: "Yor", position: { x: 26.5, y: 44 } },
+            { key: "Wal", position: { x: 22, y: 47 } },
+            { key: "Lon", position: { x: 26, y: 49 } },
 
-            { name: "Bel", position: { x: 32, y: 54 } },
-            { name: "Hol", position: { x: 35.5, y: 49 } },
-            { name: "Ruh", position: { x: 37, y: 55 } },
-            { name: "Kie", position: { x: 40, y: 51 } },
-            { name: "Den", position: { x: 42, y: 41 } },
-            { name: "Ber", position: { x: 46, y: 49 } },
-            { name: "Pru", position: { x: 52, y: 49 } },
-            { name: "Sil", position: { x: 51, y: 54 } },
-            { name: "Mun", position: { x: 40, y: 59 } },
+            { key: "Bel", position: { x: 32, y: 54 } },
+            { key: "Hol", position: { x: 35.5, y: 49 } },
+            { key: "Ruh", position: { x: 37, y: 55 } },
+            { key: "Kie", position: { x: 40, y: 51 } },
+            { key: "Den", position: { x: 42, y: 41 } },
+            { key: "Ber", position: { x: 46, y: 49 } },
+            { key: "Pru", position: { x: 52, y: 49 } },
+            { key: "Sil", position: { x: 51, y: 54 } },
+            { key: "Mun", position: { x: 40, y: 59 } },
 
-            { name: "Ven", position: { x: 42, y: 71 } },
-            { name: "Pie", position: { x: 37, y: 69 } },
-            { name: "Tus", position: { x: 41, y: 74 } },
-            { name: "Rom", position: { x: 43, y: 78 } },
-            { name: "Nap", position: { x: 47, y: 82 } },
-            { name: "Apu", position: { x: 49, y: 80 } },
+            { key: "Ven", position: { x: 42, y: 71 } },
+            { key: "Pie", position: { x: 37, y: 69 } },
+            { key: "Tus", position: { x: 41, y: 74 } },
+            { key: "Rom", position: { x: 43, y: 78 } },
+            { key: "Nap", position: { x: 47, y: 82 } },
+            { key: "Apu", position: { x: 49, y: 80 } },
 
-            { name: "Trl", position: { x: 44, y: 65 } },
-            { name: "Boh", position: { x: 48, y: 58 } },
-            { name: "Vie", position: { x: 51, y: 62 } },
-            { name: "Gal", position: { x: 60, y: 58 } },
-            { name: "Bud", position: { x: 57, y: 65 } },
-            { name: "Tri", position: { x: 52, y: 70 } },
+            { key: "Trl", position: { x: 44, y: 65 } },
+            { key: "Boh", position: { x: 48, y: 58 } },
+            { key: "Vie", position: { x: 51, y: 62 } },
+            { key: "Gal", position: { x: 60, y: 58 } },
+            { key: "Bud", position: { x: 57, y: 65 } },
+            { key: "Tri", position: { x: 52, y: 70 } },
 
-            { name: "Ser", position: { x: 58, y: 74 } },
-            { name: "Alb", position: { x: 57, y: 79 } },
-            { name: "Gre", position: { x: 60.5, y: 83 } },
-            { name: "Bul", position: { x: 65, y: 75 } },
-            { name: "Rum", position: { x: 66, y: 71 } },
+            { key: "Ser", position: { x: 58, y: 74 } },
+            { key: "Alb", position: { x: 57, y: 79 } },
+            { key: "Gre", position: { x: 60.5, y: 83 } },
+            { key: "Bul", position: { x: 65, y: 75 } },
+            { key: "Rum", position: { x: 66, y: 71 } },
 
-            { name: "War", position: { x: 59, y: 53 } },
-            { name: "Ukr", position: { x: 70, y: 57 } },
-            { name: "Sev", position: { x: 82, y: 57 } },
-            { name: "Mos", position: { x: 81, y: 44 } },
-            { name: "Lvn", position: { x: 64, y: 42 } },
-            { name: "Stp", position: { x: 80, y: 25 } },
+            { key: "War", position: { x: 59, y: 53 } },
+            { key: "Ukr", position: { x: 70, y: 57 } },
+            { key: "Sev", position: { x: 82, y: 57 } },
+            { key: "Mos", position: { x: 81, y: 44 } },
+            { key: "Lvn", position: { x: 64, y: 42 } },
+            { key: "Stp", position: { x: 80, y: 25 } },
 
-            { name: "Fin", position: { x: 64, y: 25 } },
-            { name: "Swe", position: { x: 51, y: 27 } },
-            { name: "Nwy", position: { x: 44, y: 29 } },
+            { key: "Fin", position: { x: 64, y: 25 } },
+            { key: "Swe", position: { x: 51, y: 27 } },
+            { key: "Nwy", position: { x: 44, y: 29 } },
 
-            { name: "Con", position: { x: 73, y: 83 } },
-            { name: "Smy", position: { x: 78, y: 87 } },
-            { name: "Ank", position: { x: 84, y: 80 } },
-            { name: "Arm", position: { x: 95, y: 79 } },
-            { name: "Syr", position: { x: 92, y: 90 } },
+            { key: "Con", position: { x: 73, y: 83 } },
+            { key: "Smy", position: { x: 78, y: 87 } },
+            { key: "Ank", position: { x: 84, y: 80 } },
+            { key: "Arm", position: { x: 95, y: 79 } },
+            { key: "Syr", position: { x: 92, y: 90 } },
 
         ]
 
@@ -96,8 +96,8 @@ class Map extends Component {
         this.supplyCenters = [
             // France
             { position: { x: 18, y: 57 }, home_territory: "Bre" },
-            { position: { x: 27, y: 60 }, home_territory: "Paris" },
-            { position: { x: 30, y: 71 }, home_territory: "Marseille" },
+            { position: { x: 27, y: 60 }, home_territory: "Par" },
+            { position: { x: 30, y: 71 }, home_territory: "Mar" },
             // Belgium, netherland
             { position: { x: 30, y: 53.5 }, home_territory: "Belg" },
             { position: { x: 35, y: 51 }, home_territory: "Neth" },
@@ -149,11 +149,11 @@ class Map extends Component {
     // units
 
     selectFleetUnit(territory) {
-        this.setState({ selected_unit: { territory_name: territory.name, type: "fleet" } });
+        this.setState({ selected_unit: { territory_name: territory.key, type: "fleet" } });
     }
 
     selectArmyUnit(territory) {
-        this.setState({ selected_unit: { territory_name: territory.name, type: "army" } });
+        this.setState({ selected_unit: { territory_name: territory.key, type: "army" } });
     }
 
     // check if a territory is friendly
@@ -164,12 +164,12 @@ class Map extends Component {
         if (!territories)
             return (false);
 
-        return (territories.find((territory) => { return (territory.name === territoryName && territory.user === my_username) }));
+        return (territories.find((territory) => { return (territory.key === territoryName && territory.user === my_username) }));
     }
 
     // Return informations about a territory (units, owner, ..)
     getTerritoryInfo(territory_name) {
-        return (this.props.territories.find((t) => { return (t.name === territory_name) }));
+        return (this.props.territories.find((t) => { return (t.key === territory_name) }));
     }
 
     // Territory hover functions //
@@ -182,7 +182,7 @@ class Map extends Component {
 
     addListeners() {
         this.territories.forEach((territory) => {
-            var element = document.getElementById("territory-text-" + territory.name);
+            var element = document.getElementById("territory-text-" + territory.key);
             if (element)
                 element.addEventListener("mouseover", () => { this.hoverCallback(territory) });
         });
@@ -207,7 +207,7 @@ class Map extends Component {
     }
 
     displayFriendlyDropdown(territory) {
-        const territory_info = this.getTerritoryInfo(territory.name);
+        const territory_info = this.getTerritoryInfo(territory.key);
 
         return (
             <div className="text-center">
@@ -249,7 +249,7 @@ class Map extends Component {
     }
 
     displayTerritory(territory) {
-        const friendly = this.isFriendlyTerritory(territory.name);
+        const friendly = this.isFriendlyTerritory(territory.key);
 
         return (
             <div className="dropdown show map-territory"
@@ -259,14 +259,14 @@ class Map extends Component {
                         marginTop: territory.position.y + "%"
                     }
                 }
-                key={"territory-" + territory.name}
+                key={"territory-" + territory.key}
             >
                 <label
                     className={"text-" + (friendly ? "success" : "danger") + " map-territory-name"}
                     data-toggle="dropdown"
-                    id={"territory-text-" + territory.name}
+                    id={"territory-text-" + territory.key}
                 >
-                    {territory.name}
+                    {territory.key}
                     <br />
                 </label >
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import '../css/flags.css';
 
 class Flags extends Component {
     constructor() {
+        super();
         const flags_path = "/images/flags/";
         this.flags = [
             { name: 'Austria', url: flags_path + "austria.png" },
@@ -17,7 +19,7 @@ class Flags extends Component {
     render() {
         if (!this.props.flag)
             return ("Unknown flag");
-        return (<img src={this.flags.find((f) => { return (f.name === this.props.flag) }).url} />);
+        return (<img className={this.props.className} src={this.flags.find((f) => { return (f.name === this.props.flag) }).url} alt={this.props.flag} title={this.props.flag} />);
     }
 }
 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from '../header/Header';
 import Chat from '../chat/Chat';
 import Map from './Map';
+import Flags from './Flags';
 import '../css/game.css';
 
 class Game extends Component {
@@ -26,9 +27,17 @@ class Game extends Component {
                 round_duration: response.timer,
                 round_info: "Round 1 - Spring 1901",
                 time_remaining: "5:00",
-                territories: response.map.map
+                territories: response.map
             });
         });
+    }
+
+    getUserInfo(username) {
+        return (this.state.players.find((p) => { return (p.username === username) }))
+    }
+
+    leaveRoom() {
+        global.socket.emit("leave room");
     }
 
     // Display the game header with game informations
@@ -53,7 +62,7 @@ class Game extends Component {
                 </div>
                 <div className="col-lg-3 col-sm-12">
                     <button className="btn btn-success col-sm-6">Submit orders</button>
-                    <Link className="btn btn-danger game-leave-btn col-sm-6" to="/lobbies">Leave</Link>
+                    <Link onClick={() => this.leaveRoom()} className="btn btn-danger game-leave-btn col-sm-6" to="/lobbies">Leave</Link>
                 </div>
             </header>
         )
@@ -115,7 +124,7 @@ class Game extends Component {
                                     <tr className="game-player-list-element" key={"player-" + player.username}>
                                         <td><span className={"circle " + (player.ready ? "text-success" : "text-danger")}></span></td>
                                         <td>{player.username}</td>
-                                        <td>{player.country}</td>
+                                        <td><Flags className="flag-small" flag={player.country} /></td>
                                         <td>
                                             <button
                                                 onClick={() => this.onClickChat(player.username)}
@@ -134,15 +143,15 @@ class Game extends Component {
         );
     }
 
-    displayUnits() {
+    displayTerritoryList() {
         const { territories } = this.state;
 
         if (!territories)
             return (<p>Loading..</p>);
         // For each territory
         return (
-            <div className="game-right-element game-inventory col-lg-12 col-md-12 col-sm-12">
-                <h3 className="text-center game-right-title">Units</h3>
+            <div className="game-right-element game-territory-list col-lg-12 col-md-12 col-sm-12">
+                <h3 className="text-center game-right-title">Territories</h3>
                 <div className="table-wrapper-scroll-y my-custom-scrollbar">
                     <table className="table table-bordered table-dark table-striped mb-0">
                         <thead>
@@ -154,11 +163,10 @@ class Game extends Component {
                         </thead>
                         <tbody>
                             {territories.map((territory) => {
-                                if (!territory.units.army && !territory.units.fleet)
-                                    return ("");
+                                var user = this.getUserInfo(territory.user);
                                 return (
                                     <tr key={"territory-" + territory.name}>
-                                        <td>{territory.owner}</td>
+                                        <td><Flags className="flag-small" flag={(user ? user.country : undefined)} /></td>
                                         <td>{territory.name}</td>
                                         <td>
                                             <i className="fas fa-male mr-1" hidden={!territory.units.army}></i>
@@ -191,7 +199,7 @@ class Game extends Component {
                         <div className="col-lg-5 col-md-12 col-sm-12 row">
                             {/* Display chat or player list */}
                             {(chatting_with ? this.displayChat() : this.displayPlayers())}
-                            {this.displayUnits()}
+                            {this.displayTerritoryList()}
                         </div>
                     </div>
                 </div>

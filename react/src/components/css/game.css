@@ -51,17 +51,19 @@
 
 /* Inventory */
 
-.game-inventory {
+.game-territory-list {
     height: 35%;
+    max-height: 330px;
 }
 
 .my-custom-scrollbar {
-  position: relative;
-  height: 80%;
-  overflow: auto;
+    position: relative;
+    height: 80%;
+    overflow: auto;
 }
+
 .table-wrapper-scroll-y {
-  display: block;
+    display: block;
 }
 
 /* Chat */
@@ -109,19 +111,19 @@
 /* Icon color */
 
 .fleet-icon {
-  color: #FF9052;
+    color: #FF9052;
 }
 
 .army-icon {
-  color: #FFD185;
+    color: #FFD185;
 }
 
 .center-icon {
-  color: #77D353;
+    color: #77D353;
 }
 
 .icon-title {
-  color: white;
+    color: white;
 }
 
 /* Small screens adaptations */

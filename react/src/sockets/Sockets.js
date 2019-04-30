@@ -128,6 +128,7 @@ class Sockets {
 
     addAllListeners() {
         this.listeners.forEach((listener) => {
+            console.log("Set listener: ", listener);
             this.setListener(listener.endpoint, listener.callback);
         });
     }
