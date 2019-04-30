@@ -17,6 +17,8 @@ class Game extends Component {
             chatting_with: undefined,
             territories: undefined
         };
+
+        this.timer_interval = null;
     }
 
     componentDidMount() {
@@ -26,10 +28,24 @@ class Game extends Component {
                 players: response.users,
                 round_duration: response.timer,
                 round_info: "Round 1 - Spring 1901",
-                time_remaining: "5:00",
+                time_remaining: response.timer,
                 territories: response.map
             });
         });
+        this.timer_interval = setInterval(this.deacreaseTimer, 1000);
+    }
+
+    componentWillUnmount() {
+        if (this.timer_interval)
+            clearInterval(this.timer_interval);
+    }
+
+    deacreaseTimer() {
+        var { time_remaining } = this.state;
+
+        if (!time_remaining)
+            return;
+        this.setState({ time_remaining: time_remaining - 1 });
     }
 
     getUserInfo(username) {

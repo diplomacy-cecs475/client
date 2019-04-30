@@ -42,6 +42,8 @@ class Lobby extends Component {
     }
 
     updateRoomInfo(data) {
+        if (!data)
+            return;
         this.setState({
             lobby_name: data.name,
             max_players: data.nbUsersMax,
