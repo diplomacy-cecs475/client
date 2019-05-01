@@ -19,6 +19,7 @@ class Game extends Component {
         };
 
         this.timer_interval = null;
+        this.map_ref = React.createRef();
     }
 
     componentDidMount() {
@@ -27,9 +28,11 @@ class Game extends Component {
         if (this.props.match.params.gameid === "test") {
             this.updateRoomInfo({
                 name: "test",
-                users: [{ username: "lol", ready: false, country: "France" }],
+                users: [{ username: localStorage.getItem("username"), ready: false, country: "France" }],
                 timer: 5,
-                map: [{ country: "France", key: "Par", user: null, units: { army: true, fleet: false } }]
+                map: [
+                    { country: "France", key: "Par", user: localStorage.getItem("username"), units: { army: true, fleet: false } }
+                ]
             });
             return;
         }
@@ -42,7 +45,20 @@ class Game extends Component {
         global.socket.setListener("update room:event", (data) => {
             this.updateRoomInfo(data.find((room) => { return (room.name === this.state.game_name) }));
         });
+        global.socket.setListener("orders sent:event", (data) => this.onOrderSent(data));
+
         this.timer_interval = setInterval(this.deacreaseTimer.bind(this), 1000);
+    }
+
+    onOrderSent(users) {
+        var { players } = this.state;
+
+        users.forEach((user) => {
+            var player = this.getUserInfo(user.username);
+            if (player)
+                player.ready = user.orders;
+        });
+        this.setState({ players: players });
     }
 
     componentWillUnmount() {
@@ -110,7 +126,7 @@ class Game extends Component {
                     <Flags className="flag-small" flag={me_info.country} />
                 </div>
                 <div className="col-lg-3 col-sm-12">
-                    <button className="btn btn-success col-sm-6">Submit orders</button>
+                    <button className="btn btn-success col-sm-6" disabled={me_info.ready} onClick={() => this.map_ref.current.sendOrders()}>Submit orders</button>
                     <Link onClick={() => this.leaveRoom()} className="btn btn-danger game-leave-btn col-sm-6" to="/lobbies">Leave</Link>
                 </div>
             </header>
@@ -235,7 +251,6 @@ class Game extends Component {
         const { chatting_with, territories } = this.state;
 
         if (!territories) {
-            console.log("here", territories);
             return (<p>Loading..</p>);
         }
         return (
@@ -245,7 +260,7 @@ class Game extends Component {
                     {this.displayGameHeader()}
                     <div className="row game-content">
                         <div className="col-lg-7 col-md-12 col-sm-12">
-                            <Map territories={territories} />
+                            <Map territories={territories} ref={this.map_ref} />
                         </div>
                         <div className="col-lg-5 col-md-12 col-sm-12 row">
                             {/* Display chat or player list */}

@@ -29,6 +29,12 @@
     -webkit-text-stroke-color: black;
 }
 
+.map-orders-button {
+    position: absolute;
+    right: 5%;
+    top: 10px;
+}
+
 .circle:before {
     content: ' \25CF';
     font-size: 30px;

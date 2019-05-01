@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createNotification } from "../../misc/CreateNotification";
 import '../css/map.css';
 
 class Map extends Component {
@@ -143,11 +144,14 @@ class Map extends Component {
         ];
 
         this.state = {
-            selected_unit: undefined
+            selected_unit: null,
+            orders: [],
+            orders_sent: false
         }
     }
     // units
     componentDidMount() {
+        global.socket.reconnect();
     }
 
     selectFleetUnit(territory) {
@@ -156,6 +160,52 @@ class Map extends Component {
 
     selectArmyUnit(territory) {
         this.setState({ selected_unit: { territory_name: territory.key, type: "army" } });
+    }
+
+    // Orders //
+
+    attack(territory) {
+        const { selected_unit } = this.state;
+        createNotification("success", selected_unit.territory_name + " will attack " + territory.key + " with : " + selected_unit.type);
+        this.addOrder(selected_unit.territory_name, territory.key, selected_unit.type, "attack");
+        this.setState({ selected_unit: null });
+    }
+
+    support(territory) {
+        const { selected_unit } = this.state;
+        createNotification("success", selected_unit.territory_name + " will support " + territory.key + " with : " + selected_unit.type);
+        this.addOrder(selected_unit.territory_name, territory.key, selected_unit.type, "support");
+        this.setState({ selected_unit: null });
+    }
+
+    addOrder(from, to, unit, type) {
+        var { orders } = this.state;
+        orders.push({ from: from, to: to, unit: unit, type: type });
+        this.setState({ orders: orders })
+    }
+
+    removeOrder(from, to, unit) {
+        var { orders } = this.state;
+
+        var index = orders.findIndex((o) => { return (o.from === from && o.to === to && o.unit === unit); });
+        if (index >= 0) {
+            createNotification("success", "The order to " + orders[index].type + " " + orders[index].to + " from " + orders[index].from + " has been canceled");
+            orders.splice(index, 1);
+            this.setState({ orders: orders });
+        }
+    }
+
+    sendOrders() {
+        const { orders, orders_sent } = this.state;
+
+        if (orders_sent) {
+            createNotification("error", "Orders already sent");
+            return;
+        }
+        global.socket.emit("send orders", { orders: orders }).then((response) => {
+            console.log(response);
+        });
+        this.setState({ orders_sent: true });
     }
 
     // check if a territory is friendly
@@ -235,14 +285,19 @@ class Map extends Component {
     }
 
     displayEnemyDropdown(territory) {
+        const { selected_unit } = this.state;
         return (
             <div className="text-center">
                 <label>Actions:</label>
                 <div>
-                    <button className="btn btn-light dropdown-item">
+                    <button className="btn btn-light dropdown-item"
+                        onClick={() => this.attack(territory)}
+                        disabled={!selected_unit}>
                         <i className="fas fa-male mr-1"></i>Attack
             </button>
-                    <button className="btn btn-light dropdown-item">
+                    <button className="btn btn-light dropdown-item"
+                        onClick={() => this.support(territory)}
+                        disabled={!selected_unit}>
                         <i className="fas fa-anchor mr-1"></i>Support
                 </button>
                 </div>
@@ -317,9 +372,35 @@ class Map extends Component {
         );
     }
 
+    displayOrders() {
+        const { orders } = this.state;
+
+        if (orders.length === 0) {
+            return (<span className="dropdown-item">No orders yet</span>);
+        }
+        return orders.map((order, index) => {
+            return (
+                <div className="dropdown-item" key={"order-" + index} style={{ width: "250px" }}>
+                    <span><i className={"fas fa-" + (order.unit === "fleet" ? "anchor" : "male") + " mr-1"}></i>{order.type}:{order.from} -> {order.to}
+                        <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => { this.removeOrder(order.from, order.to, order.unit) }}>
+                            <span aria-hidden="true">&times;</span>
+                        </button></span>
+                </div>
+            );
+        });
+    }
+
     render() {
         return (
             <div className="col-12 map" id="map">
+                <div className="dropdown map-orders-button">
+                    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Orders
+                    </button>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {this.displayOrders()}
+                    </div>
+                </div>
                 {this.displaySelectedUnit()}
                 {this.displaySupplyCenters()}
                 {this.displayTerritories()}

@@ -21,6 +21,7 @@ class Sockets {
             { endpoint: "reconnect user:response", callback: this.defaultCallback.bind(this) },
             { endpoint: "leave room:response", callback: this.defaultCallback.bind(this) },
             { endpoint: "start game:response", callback: this.defaultCallback.bind(this) },
+            { endpoint: "send orders:response", callback: this.defaultCallback.bind(this) },
         ];
         // SocketIO's socket
         this.socket = null;
