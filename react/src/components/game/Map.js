@@ -148,7 +148,6 @@ class Map extends Component {
     }
     // units
     componentDidMount() {
-        console.log(this.props.territories);
     }
 
     selectFleetUnit(territory) {
@@ -307,14 +306,14 @@ class Map extends Component {
             return;
         }
         return (
-          <div className="selected-unit-container row">
-            <div className="alert alert-info alert-dismissible fade show" role="alert">
-              <strong>Selected unit: </strong> {selected_unit.type} from {selected_unit.territory_name}
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => { this.setState({ selected_unit: null }) }}>
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div className="selected-unit-container row">
+                <div className="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>Selected unit: </strong> {selected_unit.type} from {selected_unit.territory_name}
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => { this.setState({ selected_unit: null }) }}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
-          </div>
         );
     }
 

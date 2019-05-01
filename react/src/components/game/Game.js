@@ -23,6 +23,19 @@ class Game extends Component {
 
     componentDidMount() {
         global.socket.reconnect();
+        ///// DEBUG /////
+        if (this.props.match.params.gameid === "test") {
+            this.updateRoomInfo({
+                name: "test",
+                users: [{ username: "lol", ready: false, country: "France" }],
+                timer: 5,
+                map: [{ country: "France", key: "Par", user: null, units: { army: true, fleet: false } }]
+            });
+            return;
+        }
+        ///// !DEBUG /////
+
+
         global.socket.emit("get room", { token: this.props.match.params.gameid }).then((response) => {
             this.updateRoomInfo(response);
         });
@@ -73,6 +86,8 @@ class Game extends Component {
         const { round_info, game_name, time_remaining } = this.state;
         const me_info = this.getUserInfo(localStorage.getItem("username"));
 
+        if (!me_info)
+            return;
         var timer_seconds = time_remaining % 60;
         var timer_minutes = Math.floor(time_remaining / 60);
         if (timer_seconds < 10)
@@ -219,8 +234,10 @@ class Game extends Component {
     render() {
         const { chatting_with, territories } = this.state;
 
-        if (!territories)
+        if (!territories) {
+            console.log("here", territories);
             return (<p>Loading..</p>);
+        }
         return (
             <div>
                 <Header noBackButton={true} />
