@@ -41,7 +41,7 @@ class Sockets {
     }
 
     clearUser() {
-        localStorage.clear("x-access-token");
+        localStorage.removeItem("x-access-token");
     }
 
     // Send
@@ -113,6 +113,7 @@ class Sockets {
     authenticationCallback(data) {
         // save username and user's token
         if (data.success) {
+            console.log(data.response.username);
             localStorage.setItem("username", data.response.username);
             localStorage.setItem("x-access-token", data.response.tokenId);
         }

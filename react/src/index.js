@@ -7,7 +7,8 @@ import Sockets from './sockets/Sockets';
 
 global.socket = new Sockets();
 // connect
-global.socket.connect("http://statecraft.tk/");
+global.socket.connect("https://statecraft.tk/");
+// global.socket.connect(":4000");
 // Default react code, do not modify
 ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
 

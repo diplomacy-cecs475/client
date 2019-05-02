@@ -17,12 +17,17 @@ class Game extends Component {
             round_info: undefined,
             chatting_with: undefined,
             territories: undefined,
-            chat_messages: {}
+            chat_messages: {},
+            chat_notifications: []
         };
 
         this.timer_interval = null;
         this.map_ref = React.createRef();
         this.chat_ref = null;
+
+        // Season info
+        this.starting_year = 1900;
+        this.seasons = ["Spring", "Fall"];
     }
 
     componentDidMount() {
@@ -53,23 +58,43 @@ class Game extends Component {
         global.socket.setListener("round:event", (data) => {
             this.map_ref.current.roundFinished();
             this.updateRoomInfo(data);
-            createNotification("info", "Round " + data.roundNumber + " has started");
+            createNotification("info", "Season :" + this.state.round_info + " has started");
         });
 
         global.socket.setListener("msgPriv", (data) => {
-            var { chat_messages } = this.state;
+            var { chat_messages, chat_notifications } = this.state;
+            // Get stored message for contact 'userFrom'
             if (!chat_messages[data.userFrom])
                 chat_messages[data.userFrom] = [];
+            // add the new message
             chat_messages[data.userFrom].push({ message: data.msg, date: "now", username: data.userFrom });
+            // If the chat is currently open
             if (this.chat_ref) {
                 var chat_msg = this.chat_ref.current.state.messages;
                 chat_msg.push({ message: data.msg, date: "now", username: data.userFrom });
                 this.chat_ref.current.setState({ messages: chat_msg })
             }
-            this.setState({ chat_messages: chat_messages });
+            else {
+                if (!chat_notifications.find((contact) => { return (contact === data.userFrom) }))
+                    chat_notifications.push(data.userFrom);
+            }
+            this.setState({ chat_messages: chat_messages, chat_notifications: chat_notifications });
         });
 
         this.timer_interval = setInterval(this.deacreaseTimer.bind(this), 1000);
+    }
+
+    removeNotification(contact_name) {
+        var { chat_notifications } = this.state;
+        var index = chat_notifications.findIndex((contact) => { return (contact === contact_name) });
+        if (index >= 0)
+            chat_notifications.splice(index, 1);
+        this.setState({ chat_notifications: chat_notifications });
+    }
+
+    notificationForContact(contact_name) {
+        var { chat_notifications } = this.state;
+        return (chat_notifications.find((contact) => { return (contact === contact_name) }));
     }
 
     onOrderSent(users) {
@@ -95,7 +120,7 @@ class Game extends Component {
             game_name: data.name,
             players: data.users,
             round_duration: data.timer,
-            round_info: "Round " + data.roundNumber,
+            round_info: this.seasons[data.roundNumber % 2] + " " + Math.floor(this.starting_year + data.roundNumber / 2),
             time_remaining: data.timer * 60,
             territories: data.map
         });
@@ -117,6 +142,8 @@ class Game extends Component {
     }
 
     getUserInfo(username) {
+        if (!this.state.players)
+            return (null);
         return (this.state.players.find((p) => { return (p.username === username) }))
     }
 
@@ -170,6 +197,7 @@ class Game extends Component {
 
     // Chat with a new user
     onClickChat(username) {
+        this.removeNotification(username);
         this.setState({ chatting_with: username });
     }
 
@@ -234,7 +262,7 @@ class Game extends Component {
                                                 onClick={() => this.onClickChat(player.username)}
                                                 className="btn game-chat-btn"
                                                 disabled={player.username === my_username}>
-                                                <i className="fas fa-comments fa-2x"></i>
+                                                <i className={"fas fa-comments fa-2x " + (this.notificationForContact(player.username) ? "game-player-list-notification" : "")}></i>
                                             </button>
                                         </td>
                                     </tr>

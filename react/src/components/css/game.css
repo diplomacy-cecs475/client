@@ -49,6 +49,10 @@
     border-bottom: 2px solid #36414C;
 }
 
+.game-player-list-notification {
+    color: red;
+}
+
 /* Inventory */
 
 .game-territory-list {
