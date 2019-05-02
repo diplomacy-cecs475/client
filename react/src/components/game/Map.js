@@ -215,7 +215,7 @@ class Map extends Component {
     }
 
     roundFinished() {
-        this.setState({ orders_sent: false });
+        this.setState({ orders_sent: false, orders: [] });
     }
 
     // check if a territory is friendly

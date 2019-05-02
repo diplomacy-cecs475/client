@@ -62,14 +62,14 @@ class Game extends Component {
         });
 
         global.socket.setListener("msgPriv", (data) => {
-            var { chat_messages, chat_notifications } = this.state;
+            var { chat_messages, chat_notifications, chatting_with } = this.state;
             // Get stored message for contact 'userFrom'
             if (!chat_messages[data.userFrom])
                 chat_messages[data.userFrom] = [];
             // add the new message
             chat_messages[data.userFrom].push({ message: data.msg, date: "now", username: data.userFrom });
             // If the chat is currently open
-            if (this.chat_ref) {
+            if (this.chat_ref && chatting_with === data.userFrom) {
                 var chat_msg = this.chat_ref.current.state.messages;
                 chat_msg.push({ message: data.msg, date: "now", username: data.userFrom });
                 this.chat_ref.current.setState({ messages: chat_msg })
