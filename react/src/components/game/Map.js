@@ -143,6 +143,85 @@ class Map extends Component {
             { position: { x: 48.5, y: 84 }, home_territory: "Nap" },
         ];
 
+        this.neighbors = [
+            { territory: "Par", neighbor: ["Bre", "Pic", "Bur", "Gas"] },
+            { territory: "NAt", neighbor: ["Nrg", "Iri", "Mid"] },
+            { territory: "Nrg", neighbor: ["NAt", "Cly", "Edi", "Nth", "Nwy", "Bar"] },
+            {
+                territory: "Bar", neighbor: ["Nrg", "Nwy", "StP"]
+            },
+            { territory: "StP", neighbor: ["Bar", "Fin", "Bot", "Lvn", "Mos"] },
+            { territory: "Mos", neighbor: ["StP", "Lvn", "War", "Ukr", "Sev"] },
+            { territory: "Sev", neighbor: ["Mos", "Ukr", "Rum", "Bla"] },
+            { territory: "Bla", neighbor: ["Sev", "Rum", "Bul", "Con", "Ank", "Arm"] },
+            { territory: "Arm", neighbor: ["Bla", "Ank", "Smy", "Syr"] },
+            { territory: "Ank", neighbor: ["Bla", "Arm", "Smy", "Con"] },
+            { territory: "Syr", neighbor: ["Arm", "Smy", "Eas"] },
+            { territory: "Smy", neighbor: ["Con", "Ank", "Arm", "Syr", "Syr", "Eas", "Aeg"] },
+            { territory: "Con", neighbor: ["Bla", "Ank", "Smy", "Aeg"] },
+            { territory: "Aeg", neighbor: ["Gre", "Ion", "Eas", "Smy", "Con", "Bul"] },
+            { territory: "Adr", neighbor: ["Ion", "Apu", "Ven", "Tri", "Alb"] },
+            { territory: "Tyn", neighbor: ["Tus", "Rom", "Nap", "Ion", "Tun", "Wes", "GoL"] },
+            { territory: "GoL", neighbor: ["Wes", "Spa", "Mar", "Pie", "Tus", "Tyn"] },
+            { territory: "Wes", neighbor: ["NAf", "Spa", "GoL", "Tyn", "Tun"] },
+            { territory: "Spa", neighbor: ["Wes", "Por", "Mid", "Gas", "Mar", "GoL"] },
+            { territory: "Por", neighbor: ["Spa", "Mid"] },
+            { territory: "Mid", neighbor: ["Spa", "Por", "NAf", "Gas", "Bre", "Eng", "Iri", "NAt"] },
+            { territory: "Eng", neighbor: ["Bre", "Pic", "Bel", "Nth", "Lon", "Wal", "Iri", "Mid"] },
+            { territory: "Iri", neighbor: ["Lvp", "Wal", "Eng", "Mid", "NAt"] },
+            { territory: "Cly", neighbor: ["Lvp", "NAt", "Edi", "Nrg"] },
+            { territory: "Edi", neighbor: ["Cly", "Lvp", "Yor", "Nth", "Nrg"] },
+            { territory: "Lvp", neighbor: ["Cly", "NAt", "Iri", "Wal", "Yor", "Edi"] },
+            { territory: "Yor", neighbor: ["Nth", "Lon", "Wal", "Lvp", "Edi"] },
+            { territory: "Wal", neighbor: ["Iri", "Eng", "Lon", "Yor", "Lvp"] },
+            { territory: "Lon", neighbor: ["Nth", "Eng", "Wal", "Yor"] },
+
+            { territory: "Gas", neighbor: ["Bre", "Par", "Bur", "Mar", "Spa", "Mid"] },
+            { territory: "Bre", neighbor: ["Gas", "Par", "Pic", "Eng", "Mid"] },
+            { territory: "Pic", neighbor: ["Eng", "Bel", "Bur", "Par", "Bre"] },
+            { territory: "Bur", neighbor: ["Bel", "Ruh", "Mun", "Mar", "Gas", "Par", "Pic"] },
+            { territory: "Mar", neighbor: ["Spa", "Gas", "Bur", "Pie", "GoL"] },
+
+            { territory: "Bel", neighbor: ["Pic", "Bur", "Ruh", "Hol", "Nth", "Eng"] },
+            { territory: "Hol", neighbor: ["Bel", "Ruh", "Kie", "Hel", "Nth"] },
+            { territory: "Ruh", neighbor: ["Hol", "Kie", "Mun", "Bur", "Bel"] },
+            { territory: "Kie", neighbor: ["Den", "Ber", "Mun", "Ruh", "Hol", "Hel"] },
+
+            { territory: "Mun", neighbor: ["Ruh", "Kie", "Ber", "Sil", "Boh", "Tyr", "Bur"] },
+            { territory: "Pie", neighbor: ["Mar", "GoL", "Tus", "Ven", "Tyr"] },
+            { territory: "Ven", neighbor: ["Tyr", "Tri", "Adr", "Apu", "Rom", "Tus", "Pie"] },
+            { territory: "Tus", neighbor: ["Pie", "Ven", "Rom", "Tyn", "GoL"] },
+            { territory: "Rom", neighbor: ["Tus", "Ven", "Apu", "Nap", "Tyn"] },
+            { territory: "Apu", neighbor: ["Adr", "Ion", "Nap", "Rom", "Ven"] },
+            { territory: "Nap", neighbor: ["Ion", "Tyn", "Rom", "Apu"] },
+            { territory: "Tyr", neighbor: ["Mun", "Boh", "Vie", "Tri", "Ven", "Pie"] },
+
+            { territory: "Tri", neighbor: ["Ven", "Tyr", "Vie", "Bud", "Ser", "Alb", "Adr"] },
+            { territory: "Alb", neighbor: ["Tri", "Ser", "Gre", "Ion", "Adr"] },
+            { territory: "Gre", neighbor: ["Alb", "Ser", "Bul", "Aeg", "Ion"] },
+            { territory: "Ser", neighbor: ["Tri", "Bud", "Rum", "Bul", "Gre", "Alb"] },
+            { territory: "Bul", neighbor: ["Gre", "Ser", "Rum", "Bla", "Aeg"] },
+            { territory: "Rum", neighbor: ["Bul", "Ser", "Bud", "Gal", "Ukr", "Sev", "Bla"] },
+            { territory: "Gal", neighbor: ["War", "Ukr", "Rum", "Bud", "Vie", "Boh", "Sil"] },
+            { territory: "Vie", neighbor: ["Boh", "Gal", "Bud", "Tri", "Tyr"] },
+            { territory: "Boh", neighbor: ["Sil", "Gal", "Vie", "Tyr", "Mun"] },
+            { territory: "Sil", neighbor: ["Ber", "Pre", "War", "Gal", "Boh", "Mun"] },
+            { territory: "Ber", neighbor: ["Bal", "Pre", "Sil", "Mun", "Kie"] },
+            { territory: "Den", neighbor: ["Ska", "Bal", "Kie", "Hel", "Nth"] },
+            { territory: "Nth", neighbor: ["Nrg", "Nwy", "Ska", "Den", "Hel", "Hol", "Bel", "Lon", "Yor", "Edi"] },
+            { territory: "Hel", neighbor: ["Nth", "Den", "Kie", "Hol"] },
+            { territory: "Ska", neighbor: ["Nwy", "Swe", "Den", "Nth"] },
+            { territory: "Pre", neighbor: ["Bal", "Lvn", "War", "Sil", "Ber"] },
+            { territory: "War", neighbor: ["Lvn", "Mos", "Ukr", "Gal", "Sil", "Pre"] },
+            { territory: "Bud", neighbor: ["Gal", "Rum", "Ser", "Tri", "Vie"] },
+            { territory: "Ukr", neighbor: ["Mos", "Sev", "Rum", "Gal", "War"] },
+            { territory: "NAf", neighbor: ["Mid", "Wes", "Tun"] },
+
+            { territory: "Tun", neighbor: ["NAf", "Wes", "Tyn", "Ion"] },
+            { territory: "Bot", neighbor: ["Swe", "Fin", "StP", "Lvn", "Bal"] },
+            { territory: "Lvn", neighbor: ["Bot", "StP", "Mos", "War", "Pre", "Bal"] }
+        ];
+
         this.state = {
             selected_unit: null,
             orders: [],
@@ -165,8 +244,22 @@ class Map extends Component {
 
     // Orders //
 
+    allowOrder(from, to) {
+        var from_neighbors = this.neighbors.find((neighbor) => { return (neighbor.territory === from) });
+        if (from_neighbors < 0)
+            return (false);
+        if (from_neighbors.neighbor.find((territory) => { return (territory === to) }))
+            return (true);
+        return (false);
+    }
+
     attack(territory) {
         const { selected_unit } = this.state;
+
+        if (!this.allowOrder(selected_unit.territory_name, territory.key)) {
+            createNotification("error", "This territory is too far");
+            return;
+        }
         createNotification("success", selected_unit.territory_name + " will attack " + territory.key + " with : " + selected_unit.type);
         this.addOrder(selected_unit.territory_name, territory.key, selected_unit.type, "attack");
         this.setState({ selected_unit: null });
@@ -174,6 +267,10 @@ class Map extends Component {
 
     support(territory) {
         const { selected_unit } = this.state;
+        if (!this.allowOrder(selected_unit.territory_name, territory.key)) {
+            createNotification("error", "This territory is too far");
+            return;
+        }
         createNotification("success", selected_unit.territory_name + " will support " + territory.key + " with : " + selected_unit.type);
         this.addOrder(selected_unit.territory_name, territory.key, selected_unit.type, "support");
         this.setState({ selected_unit: null });
@@ -316,11 +413,18 @@ class Map extends Component {
     }
 
     displayTerritory(territory) {
+        const { selected_unit } = this.state;
         const friendly = this.isFriendlyTerritory(territory.key);
         var territory_info = this.getTerritoryInfo(territory.key);
-
+        var allow_order = true;
         var territory_color = "text-";
-        if (territory_info && territory_info.user === null)
+
+        if (selected_unit) {
+            allow_order = this.allowOrder(selected_unit.territory_name, territory.key);
+        }
+        if (selected_unit && allow_order)
+            territory_color += "primary";
+        else if ((territory_info && territory_info.user === null) || !allow_order)
             territory_color += "muted";
         else if (friendly) {
             territory_color += "success";
