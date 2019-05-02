@@ -5,6 +5,7 @@ import Chat from '../chat/Chat';
 import Map from './Map';
 import Flags from './Flags';
 import '../css/game.css';
+import { createNotification } from '../../misc/CreateNotification';
 
 class Game extends Component {
     constructor() {
@@ -52,6 +53,7 @@ class Game extends Component {
         global.socket.setListener("round:event", (data) => {
             this.map_ref.current.roundFinished();
             this.updateRoomInfo(data);
+            createNotification("info", "Round " + data.roundNumber + " has started");
         });
 
         global.socket.setListener("msgPriv", (data) => {
@@ -103,8 +105,10 @@ class Game extends Component {
     deacreaseTimer() {
         var { time_remaining } = this.state;
 
-        if (!time_remaining || time_remaining === 0)
+        if (!time_remaining || time_remaining === 0) {
+            this.endRound();
             return;
+        }
         this.setState({ time_remaining: time_remaining - 1 });
     }
 
@@ -117,7 +121,7 @@ class Game extends Component {
     }
 
     endRound() {
-        global.socket.emit("end round");
+        global.socket.emit("end round", false);
     }
 
     // Display the game header with game informations
