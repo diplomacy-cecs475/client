@@ -15,11 +15,13 @@ class Game extends Component {
             game_name: undefined,
             round_info: undefined,
             chatting_with: undefined,
-            territories: undefined
+            territories: undefined,
+            chat_messages: {}
         };
 
         this.timer_interval = null;
         this.map_ref = React.createRef();
+        this.chat_ref = null;
     }
 
     componentDidMount() {
@@ -47,6 +49,24 @@ class Game extends Component {
         });
         global.socket.setListener("orders sent:event", (data) => this.onOrderSent(data));
 
+        global.socket.setListener("round:event", (data) => {
+            this.map_ref.current.roundFinished();
+            this.updateRoomInfo(data);
+        });
+
+        global.socket.setListener("msgPriv", (data) => {
+            var { chat_messages } = this.state;
+            if (!chat_messages[data.userFrom])
+                chat_messages[data.userFrom] = [];
+            chat_messages[data.userFrom].push({ message: data.msg, date: "now", username: data.userFrom });
+            if (this.chat_ref) {
+                var chat_msg = this.chat_ref.current.state.messages;
+                chat_msg.push({ message: data.msg, date: "now", username: data.userFrom });
+                this.chat_ref.current.setState({ messages: chat_msg })
+            }
+            this.setState({ chat_messages: chat_messages });
+        });
+
         this.timer_interval = setInterval(this.deacreaseTimer.bind(this), 1000);
     }
 
@@ -73,7 +93,7 @@ class Game extends Component {
             game_name: data.name,
             players: data.users,
             round_duration: data.timer,
-            round_info: "Round 1 - Spring 1901",
+            round_info: "Round " + data.roundNumber,
             time_remaining: data.timer * 60,
             territories: data.map
         });
@@ -94,6 +114,10 @@ class Game extends Component {
 
     leaveRoom() {
         global.socket.emit("leave room");
+    }
+
+    endRound() {
+        global.socket.emit("end round");
     }
 
     // Display the game header with game informations
@@ -127,6 +151,7 @@ class Game extends Component {
                 </div>
                 <div className="col-lg-3 col-sm-12">
                     <button className="btn btn-success col-sm-6" disabled={me_info.ready} onClick={() => this.map_ref.current.sendOrders()}>Submit orders</button>
+                    <button className="btn btn-success col-sm-6" hidden={!me_info.admin} onClick={() => { this.endRound() }}>Finish round</button>
                     <Link onClick={() => this.leaveRoom()} className="btn btn-danger game-leave-btn col-sm-6" to="/lobbies">Leave</Link>
                 </div>
             </header>
@@ -142,14 +167,20 @@ class Game extends Component {
 
     // Close current chat
     onClickChatClose() {
+        var { chat_messages, chatting_with } = this.state;
+        chat_messages[chatting_with] = this.chat_ref.current.state.messages;
+        this.chat_ref = null;
         this.setState({
             chatting_with: undefined,
+            chat_messages: chat_messages
         });
     }
 
     displayChat() {
-        const { chatting_with } = this.state;
+        const { chatting_with, chat_messages } = this.state;
 
+        var ref = React.createRef();
+        this.chat_ref = ref;
         if (!chatting_with)
             return;
         return (
@@ -158,7 +189,7 @@ class Game extends Component {
                     <h3 className="game-chat-title">Chatting with <b>{chatting_with}</b></h3>
                     <button className="btn game-chat-close-btn" onClick={() => this.onClickChatClose()}><i className="fas fa-times fa-2x"></i></button>
                 </div>
-                <Chat contact={chatting_with} />
+                <Chat contact={chatting_with} old_messages={chat_messages[chatting_with]} ref={this.chat_ref} />
             </div>);
     }
 

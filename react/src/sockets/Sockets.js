@@ -22,6 +22,7 @@ class Sockets {
             { endpoint: "leave room:response", callback: this.defaultCallback.bind(this) },
             { endpoint: "start game:response", callback: this.defaultCallback.bind(this) },
             { endpoint: "send orders:response", callback: this.defaultCallback.bind(this) },
+            { endpoint: "end round:response", callback: this.defaultCallback.bind(this) },
         ];
         // SocketIO's socket
         this.socket = null;
@@ -62,7 +63,7 @@ class Sockets {
     }
 
     // Send data to the server and return a response
-    emit(endpoint, data) {
+    emit(endpoint, data, wait_response = true) {
         // Check if socket exist
         if (!this.socket) {
             console.error("Emit failed, socket is null");
@@ -77,6 +78,8 @@ class Sockets {
         data.code = code;
         // send the data to the server
         this.socket.emit(endpoint, data);
+        if (!wait_response)
+            return (null);
         // wait for the response for {request_timeout} milliseconds
         return (new Promise((resolve, reject) => {
             // start an interval to check every 10ms if there was a response

@@ -60,9 +60,7 @@ class Lobby extends Component {
     }
 
     startGame() {
-        global.socket.emit("start game").then((response) => {
-            console.log(response);
-        });
+        global.socket.emit("start game");
         document.getElementById("start-game-btn").disabled = true;
     }
 

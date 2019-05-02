@@ -208,6 +208,10 @@ class Map extends Component {
         this.setState({ orders_sent: true });
     }
 
+    roundFinished() {
+        this.setState({ orders_sent: false });
+    }
+
     // check if a territory is friendly
     isFriendlyTerritory(territoryName) {
         const { territories } = this.props;
@@ -292,12 +296,12 @@ class Map extends Component {
                 <div>
                     <button className="btn btn-light dropdown-item"
                         onClick={() => this.attack(territory)}
-                        disabled={!selected_unit}>
+                        disabled={!selected_unit || selected_unit.type === "fleet"}>
                         <i className="fas fa-male mr-1"></i>Attack
             </button>
                     <button className="btn btn-light dropdown-item"
                         onClick={() => this.support(territory)}
-                        disabled={!selected_unit}>
+                        disabled={!selected_unit || selected_unit.type === "fleet"}>
                         <i className="fas fa-anchor mr-1"></i>Support
                 </button>
                 </div>
