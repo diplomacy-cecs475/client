@@ -159,6 +159,7 @@ class Map extends Component {
     }
 
     selectArmyUnit(territory) {
+        console.log("army");
         this.setState({ selected_unit: { territory_name: territory.key, type: "army" } });
     }
 
@@ -206,6 +207,11 @@ class Map extends Component {
             console.log(response);
         });
         this.setState({ orders_sent: true });
+    }
+
+    isUnitInOrder(territory_name, unit_type) {
+        const { orders } = this.state;
+        return orders.find((o) => { return (o.from === territory_name && o.unit === unit_type) });
     }
 
     roundFinished() {
@@ -271,14 +277,14 @@ class Map extends Component {
                 <div className="row">
                     <button
                         className="btn btn-light dropdown-item col-6"
-                        disabled={!territory_info.units.army}
+                        disabled={!territory_info.units.army || this.isUnitInOrder(territory_info.key, "army")}
                         onClick={() => { if (territory_info.units.army) this.selectArmyUnit(territory_info); }}
                     >
                         <i className="fas fa-male mr-1"></i>Army
                     </button>
                     <button
                         className="btn btn-light dropdown-item col-6"
-                        disabled={!territory_info.units.fleet}
+                        disabled={!territory_info.units.fleet || this.isUnitInOrder(territory_info.key, "fleet")}
                         onClick={() => { if (territory_info.units.fleet) this.selectFleetUnit(territory_info); }}
                     >
                         <i className="fas fa-anchor mr-1"></i>Fleet

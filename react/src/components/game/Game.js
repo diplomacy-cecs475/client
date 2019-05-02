@@ -104,9 +104,13 @@ class Game extends Component {
 
     deacreaseTimer() {
         var { time_remaining } = this.state;
+        const me_info = this.getUserInfo(localStorage.getItem("username"));
 
-        if (!time_remaining || time_remaining === 0) {
+        if (time_remaining === 0 && me_info.admin) {
             this.endRound();
+            return;
+        }
+        if (!time_remaining && time_remaining === 0) {
             return;
         }
         this.setState({ time_remaining: time_remaining - 1 });
