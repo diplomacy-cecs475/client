@@ -53,6 +53,18 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
+                <div className="text-center col-4 offset-4 mt-5" hidden={window && window.process && window.process.type}>
+                    <ul className="nav">
+                        <li className="col-12 px-0">
+                            <button className="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">Download the desktop application !</button>
+                            <div className="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                                <a className="dropdown-item" href="/res/statecraft-linux.zip"><i className="fas fa-download mr-1"></i>Linux x64</a>
+                                <a className="dropdown-item" href="/res/statecraft-windows.zip"><i className="fas fa-download mr-1"></i>Windows x64</a>
+                                <a className="dropdown-item" href="/res/statecraft-mac.zip"><i className="fas fa-download mr-1"></i>Mac</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div className="text-center mt-5">
                     <h2>How to play</h2>
                     <iframe title="how to play" width="560" height="315" src="https://www.youtube.com/embed/v9rcnahI-_s" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
